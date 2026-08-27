@@ -272,6 +272,24 @@ async function build() {
     );
   }
 
+  /* Sitemap: a lista de páginas para os buscadores. Sai do próprio build,
+     então nunca fica desatualizada. */
+  const base = (site.marca?.dominio || '').replace(/\/$/, '');
+  if (base) {
+    const hoje = new Date().toISOString().slice(0, 10);
+    const urls = [
+      '', 'projetos.html', 'contato.html',
+      ...projects.filter((p) => !p.soCapa).map((p) => `projetos/${p.slug}.html`),
+    ];
+    const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map((u) => `  <url><loc>https://${base}/${u}</loc><lastmod>${hoje}</lastmod></url>`).join('\n')}
+</urlset>
+`;
+    await fs.writeFile(path.join(DIST, 'sitemap.xml'), xml);
+    console.log(`  · sitemap: ${urls.length} páginas`);
+  }
+
   await copyStatic();
 
   const comPagina = projects.filter((p) => !p.soCapa).length;
