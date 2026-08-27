@@ -129,9 +129,14 @@
     var video = hero.querySelector('video');
     var supportsBlend = window.CSS && CSS.supports && CSS.supports('mix-blend-mode', 'screen');
 
-    if (!video || reduced || !supportsBlend) {
+    /* Sem vídeo o hero é o gradiente por dentro das letras, que é CSS puro:
+       o JS não tem nada a fazer aqui. `is-solid` só entra quando havia um
+       vídeo e ele não pode tocar. */
+    if (!video) {
+      /* nada a fazer */
+    } else if (reduced || !supportsBlend) {
       hero.classList.add('is-solid');
-      if (video) { video.pause(); video.remove(); }
+      video.pause(); video.remove();
     } else {
       video.muted = true;
       video.playsInline = true;

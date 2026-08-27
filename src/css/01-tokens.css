@@ -37,7 +37,10 @@
   /* ---------- TIPOGRAFIA ---------- */
   --font-sans: 'Inter Tight', 'Inter', -apple-system, BlinkMacSystemFont,
                'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo,
+  /* O detalhe pequeno agora é a MESMA família do resto. O que faz ele ler
+     como etiqueta é o tamanho, a caixa alta e o espaçamento, não outra fonte.
+     Mono de programador entregava "feito por máquina". */
+  --font-mono: 'Inter Tight', 'Inter', -apple-system, BlinkMacSystemFont, ui-monospace, SFMono-Regular, Menlo,
                Consolas, monospace;
 
   /* Escala fluida. O impacto vem do TAMANHO, nunca do peso.
@@ -62,7 +65,7 @@
   --tr-display-m:  -0.028em;
   --tr-heading:    -0.02em;
   --tr-body:       -0.011em;
-  --tr-meta:        0.09em;
+  --tr-meta:        0.14em;
 
   /* ---------- ESPAÇO ---------- */
   --s-1:  0.25rem;

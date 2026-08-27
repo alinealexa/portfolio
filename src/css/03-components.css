@@ -94,7 +94,7 @@
    O fallback (sem suporte a background-clip:text, ou reduced-motion)
    é texto sólido — nunca some, nunca quebra. */
 
-.hero { padding-top: clamp(6rem, 13vh, 9rem); padding-bottom: var(--s-16); }
+.hero { padding-top: clamp(6rem, 13vh, 9rem); padding-bottom: var(--s-8); }
 
 /* Linha de meta ACIMA do título, como na revisão.
    A régua embaixo dela é o primeiro "ponto de luz" da paleta: um fio de
@@ -102,6 +102,7 @@
    De longe lê como uma linha cinza; de perto tem a marca dentro. */
 .hero__top {
   position: relative;
+  color: var(--ink-soft);
   display: flex; align-items: baseline; justify-content: space-between;
   gap: var(--s-4);
   padding-bottom: var(--s-4);
@@ -140,41 +141,216 @@
   margin: 0;
 }
 
-/* O palco: vídeo ao fundo, título por cima em blend screen.
-   screen(papel, vídeo) ≈ papel  → o entorno continua limpo
-   screen(preto, vídeo) = vídeo  → o vídeo aparece só dentro das letras */
-.hero__stage {
-  position: relative;
-  isolation: isolate;      /* o blend não vaza para o resto da página */
-  background: var(--paper);
+/* ---------- HERO: A IDEIA NO CÉREBRO ----------
+   Título preto e imóvel. O fundo muda de forma e ATRAVESSA a tela inteira:
+   cada mancha faz uma volta pelos quatro cantos, em tempo próprio (7s a 11s)
+   e em sentido próprio. Como os tempos não são múltiplos entre si, a
+   composição nunca repete a mesma combinação. Loop fechado o olho reconhece
+   e vira enfeite; o que não repete parece pensamento. */
+/* O topo do site é branco, do primeiro pixel até a seção Studio. Sem isso
+   o cinza do papel aparecia atrás do menu e o hero virava um retângulo
+   branco solto no meio. */
+.topo-branco { background: #ffffff; }
+
+.hero { position: relative; }
+
+.hero__aura {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: calc(var(--s-8) * -1);
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  overflow: hidden;
+  pointer-events: none;
+  background: #ffffff;
+  -webkit-mask-image: radial-gradient(140% 130% at 50% 50%, #000 58%, transparent 100%);
+          mask-image: radial-gradient(140% 130% at 50% 50%, #000 58%, transparent 100%);
 }
-.hero__stage video {
+.hero__aura i {
+  position: absolute;
+  display: block;
+  left: 18%;
+  top: -10%;
+  width: 57vw;
+  height: 53vw;
+  /* Gradiente por dentro: uma mancha só precisa ter miolo e borda,
+     senão vira um disco chapado. */
+  background:
+    radial-gradient(closest-side at 42% 40%, #0b0bff 0%, #2a2aff 44%, rgba(42,42,255,0.62) 72%, rgba(42,42,255,0) 100%),
+    radial-gradient(closest-side at 68% 66%, #0026c8 0%, rgba(0,38,200,0) 76%);
+  opacity: 0.88;
+  filter: blur(56px);
+  border-radius: 58% 42% 47% 53% / 52% 45% 55% 48%;
+  will-change: transform, border-radius;
+  animation: aura 27s cubic-bezier(.42,0,.58,1) infinite;
+}
+
+/* A volta é desenhada em cima da página: a mancha mora do centro para a
+   direita e desce pelo rodapé do hero. Pela esquerda alta, que é onde o
+   título vive, ela só passa — e passa rápido, entre 66% e 82% do ciclo. */
+@keyframes aura {
+  0%   { transform: translate3d(14vw,-4vh,0)   scale(1.00); border-radius: 58% 42% 47% 53% / 52% 45% 55% 48%; }
+  14%  { transform: translate3d(34vw,4vh,0)    scale(1.16); border-radius: 38% 62% 66% 34% / 63% 38% 62% 37%; }
+  30%  { transform: translate3d(40vw,24vh,0)   scale(0.92); border-radius: 67% 33% 36% 64% / 40% 66% 34% 60%; }
+  46%  { transform: translate3d(22vw,38vh,0)   scale(1.22); border-radius: 45% 55% 30% 70% / 58% 32% 68% 42%; }
+  60%  { transform: translate3d(-2vw,34vh,0)   scale(1.04); border-radius: 70% 30% 58% 42% / 34% 64% 36% 66%; }
+  70%  { transform: translate3d(-22vw,16vh,0)  scale(0.94); border-radius: 33% 67% 44% 56% / 62% 40% 60% 38%; }
+  78%  { transform: translate3d(-16vw,-8vh,0)  scale(0.88); border-radius: 60% 40% 62% 38% / 44% 58% 42% 56%; }
+  86%  { transform: translate3d(2vw,-6vh,0)    scale(1.02); border-radius: 48% 52% 38% 62% / 56% 46% 54% 44%; }
+  100% { transform: translate3d(14vw,-4vh,0)   scale(1.00); border-radius: 58% 42% 47% 53% / 52% 45% 55% 48%; }
+}
+
+/* Véu do texto: por cima das manchas, por baixo do conteúdo. Onde há
+   texto preto — título, frase, linha de topo — o azul chega leitoso.
+   Ela pediu assim: não desviar do texto, e sim diluir ao passar por ele. */
+.hero__aura::before {
+  content: '';
   position: absolute;
   inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
-  z-index: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(96deg,
+      rgba(255,255,255,0.80) 0%,
+      rgba(255,255,255,0.68) 26%,
+      rgba(255,255,255,0.34) 48%,
+      rgba(255,255,255,0.00) 66%);
 }
+
+/* Grão: é ele que separa gradiente de plástico. */
+.hero__aura::after {
+  content: '';
+  position: absolute; inset: 0;
+  z-index: 2;
+  opacity: 0.18;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+}
+
+/* Conteúdo sempre acima das manchas. */
+.hero__top, .hero__stage, .hero__foot { position: relative; z-index: 1; }
+
+.hero__stage { position: relative; isolation: isolate; }
 .hero__fill {
   position: relative;
   z-index: 1;
   display: block;
   margin: 0;
+  color: var(--ink);
+}
+.hero__dot { background: var(--brand-azul); }
+
+/* Se um dia entrar um .mp4 em hero.video, ele volta a mandar. */
+.hero__stage video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.hero__stage:has(video) .hero__fill {
   color: #000;
   background: var(--paper);
   mix-blend-mode: screen;
 }
-/* Sem suporte a blend, com reduced-motion, ou se o vídeo não tocar:
-   texto sólido comum. Nunca some, nunca quebra. */
-.hero.is-solid .hero__fill,
-.hero__fill--solid {
-  mix-blend-mode: normal;
-  background: transparent;
+.hero:has(video) .hero__aura { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__aura i { animation: none; }
+}
+
+.hero__foot { position: relative; z-index: 1; }
+
+.hero__stage { position: relative; isolation: isolate; }
+.hero__fill {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin: 0;
   color: var(--ink);
 }
-@supports not (mix-blend-mode: screen) {
-  .hero__fill { mix-blend-mode: normal; background: transparent; color: var(--ink); }
-  .hero__stage video { display: none; }
+.hero__dot { background: var(--brand-azul); }
+
+/* Se um dia entrar um .mp4 em hero.video, ele volta a mandar. */
+.hero__stage video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.hero__stage:has(video) .hero__fill {
+  color: #000;
+  background: var(--paper);
+  mix-blend-mode: screen;
+}
+.hero:has(video) .hero__aura { display: none; }
+
+/* Movimento reduzido: a composição congela numa forma bonita. */
+@media (prefers-reduced-motion: reduce) {
+  .hero__aura i { animation: none; }
+}
+
+.hero__foot { position: relative; z-index: 1; }
+
+.hero__stage { position: relative; isolation: isolate; }
+.hero__fill {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin: 0;
+  color: var(--ink);
+}
+.hero__dot { background: var(--brand-azul); }
+
+/* Se um dia entrar um .mp4 em hero.video, ele volta a mandar. */
+.hero__stage video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.hero__stage:has(video) .hero__fill {
+  color: #000;
+  background: var(--paper);
+  mix-blend-mode: screen;
+}
+.hero:has(video)::before,
+.hero:has(video)::after { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero::before { animation: none; }
+}
+
+.hero__foot { position: relative; z-index: 1; }
+
+.hero__stage { position: relative; isolation: isolate; }
+.hero__fill {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin: 0;
+  color: var(--ink);
+}
+.hero__dot { background: var(--brand-azul); }
+
+/* Vídeo por dentro das letras, se um dia entrar um .mp4 em hero.video:
+   ele volta a mandar e o fundo animado sai de cena. */
+.hero__stage video {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.hero__stage:has(video) .hero__fill {
+  color: #000;
+  background: var(--paper);
+  mix-blend-mode: screen;
+}
+.hero:has(video)::before,
+.hero:has(video)::after { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero::before { animation: none; }
 }
 
 .hero__foot {
@@ -186,20 +362,6 @@
 @media (min-width: 900px) {
   .hero__foot { grid-template-columns: minmax(0, 1fr) auto; align-items: end; }
 }
-.hero__scroll {
-  display: inline-flex; align-items: center; gap: var(--s-3);
-}
-.hero__scroll-line {
-  display: block; width: 3.5rem; height: 1px;
-  background: linear-gradient(90deg, var(--brand-ciano), var(--brand-azul));
-  transform-origin: left;
-  animation: sweep 2.6s var(--ease-io) infinite;
-}
-@keyframes sweep {
-  0%, 100% { transform: scaleX(0.25); opacity: 0.4; }
-  50%      { transform: scaleX(1);    opacity: 1; }
-}
-
 /* ---------- ÍNDICE DE PROJETOS ----------
    Nome e serviço ACIMA da imagem (como nas referências). Isso faz o
    olho ler o título antes de mergulhar na foto, e cria uma linha
@@ -416,7 +578,15 @@
   .service { grid-template-columns: 3.5rem minmax(0, 21rem) minmax(0, 1fr); align-items: baseline; }
   .service:hover { padding-left: var(--s-4); }
 }
-.service__name { font-size: var(--t-heading); letter-spacing: var(--tr-heading); line-height: 1.15; }
+.service__name {
+  font-size: var(--t-heading);
+  letter-spacing: var(--tr-heading);
+  line-height: 1.15;
+  transition: color var(--dur-fast) var(--ease);
+}
+/* Passar o mouse acende o nome da área no azul da marca. Não é link, é
+   só o reconhecimento de que o olho está ali. */
+.service__name:hover { color: var(--brand-azul); }
 .service__desc { color: var(--ink-soft); max-width: 56ch; }
 
 /* A lista de entregas de cada área. Em duas colunas no desktop para

@@ -57,7 +57,7 @@ export function layout({ site, title, description, body, page, depth = 0 }) {
 <link rel="icon" href="${up}favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500&family=JetBrains+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500&display=swap">
 <link rel="stylesheet" href="${up}assets/styles.css">
 <script>document.documentElement.classList.add('js')</script>
 </head>
@@ -245,7 +245,10 @@ export function home({ site, projects }) {
     : '';
 
   const body = `
+<div class="topo-branco">
 <section class="hero wrap" data-hero>
+  <div class="hero__aura" aria-hidden="true"><i></i></div>
+
   <div class="hero__top">
     <span class="meta">Desde ${e(hero.desde || '')}</span>
     <span class="meta">${e(site.contato?.cidade || '')}</span>
@@ -260,10 +263,6 @@ export function home({ site, projects }) {
 
   <div class="hero__foot">
     <p class="lead" style="max-width:34ch">${e(hero.frase || '')}</p>
-    <a class="hero__scroll meta" href="#trabalho">
-      <span class="hero__scroll-line" aria-hidden="true"></span>
-      Role para ver
-    </a>
   </div>
 </section>
 
@@ -277,6 +276,7 @@ export function home({ site, projects }) {
     </div>
   </div>
 </section>
+</div>
 
 <section class="wrap" id="studio" style="padding-block:var(--section)">
   <div class="section-head" data-reveal>
@@ -285,6 +285,22 @@ export function home({ site, projects }) {
 
   <p class="display-m" data-reveal style="max-width:22ch">${rich(site.manifesto, { dotEnd: true })}</p>
 
+</section>
+
+<section class="wrap" id="clientes" style="padding-block:var(--s-12) var(--section)">
+  <div class="section-head" data-reveal>
+    <h2 class="meta">Clientes</h2>
+  </div>
+  <div class="clients" data-reveal>
+    ${(site.clientes || []).map((c) => {
+      const nome = typeof c === 'string' ? c : (c.nome || '');
+      const logo = typeof c === 'string' ? null : c.logo;
+      const escala = typeof c === 'string' ? null : c.escala;
+      return `<div class="client">${logo
+        ? `<img src="brand/clientes/${e(logo)}" alt="${e(nome)}" loading="lazy" decoding="async"${escala ? ` style="--escala:${escala}"` : ''}>`
+        : `<span>${e(nome)}</span>`}</div>`;
+    }).join('\n    ')}
+  </div>
 </section>
 
 <section class="block" style="margin:var(--gutter)">
@@ -303,22 +319,6 @@ export function home({ site, projects }) {
           : `<p class="service__desc">${e(a.desc || '')}</p>`}
       </div>`).join('')}
     </div>
-  </div>
-</section>
-
-<section class="wrap" id="clientes" style="padding-block:var(--section)">
-  <div class="section-head" data-reveal>
-    <h2 class="meta">Clientes</h2>
-  </div>
-  <div class="clients" data-reveal>
-    ${(site.clientes || []).map((c) => {
-      const nome = typeof c === 'string' ? c : (c.nome || '');
-      const logo = typeof c === 'string' ? null : c.logo;
-      const escala = typeof c === 'string' ? null : c.escala;
-      return `<div class="client">${logo
-        ? `<img src="brand/clientes/${e(logo)}" alt="${e(nome)}" loading="lazy" decoding="async"${escala ? ` style="--escala:${escala}"` : ''}>`
-        : `<span>${e(nome)}</span>`}</div>`;
-    }).join('\n    ')}
   </div>
 </section>
 
