@@ -1,6 +1,6 @@
 ---
 titulo: "Triwayz"
-cliente: "Triwayz, canal de conteúdo de Feppi Legge e Lucas Nicioli"
+cliente: "Triwayz, canal de conteúdo de Fernanda Pileggi e Lucas Niccioli"
 ano: 2024
 resumo: "Identidade para um canal de triatlo que precisava ser a mesma coisa no YouTube, no Strava, no Spotify e numa camiseta em movimento."
 servicos:
@@ -16,7 +16,7 @@ ordem: 4
 
 ## Contexto
 
-Feppi Legge e Lucas Nicioli são triatletas e comunicadores com nome feito na
+Fernanda Pileggi e Lucas Niccioli são triatletas e comunicadores com nome feito na
 comunidade esportiva. A Triwayz nasce da decisão de profissionalizar essa
 audiência: sair do perfil pessoal e virar canal, com YouTube, Strava e podcast
 no Spotify. Cada uma dessas plataformas tem um formato diferente, e a marca
