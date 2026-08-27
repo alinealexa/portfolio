@@ -1,0 +1,108 @@
+/* ============================================================
+   _aa.creativestudio — DESIGN TOKENS
+   Uma única fonte de verdade. Nada de valor solto no resto do CSS.
+   ============================================================ */
+
+:root {
+  /* ---------- COR ----------
+     A interface é monocromática de propósito: a cor entra pelas
+     imagens dos projetos. O acento existe, mas é usado com avareza. */
+  /* Paleta oficial da marca:
+     laranja #FF5700 · azul #00269F · ciano #00CFCD · branco · preto */
+  --paper:      #F1F1EF;   /* fundo da página — cinza claríssimo */
+  --surface:    #FFFFFF;   /* cartões que flutuam sobre o paper — branco da marca */
+  --night:      #000000;   /* blocos escuros — preto da marca */
+
+  --ink:        #000000;   /* texto principal */
+  --ink-soft:   #4A4A48;   /* texto de apoio */
+  --ink-faint:  #6C6C69;   /* meta, contadores, labels */
+  /* Nota: o cinza dos labels é mais escuro que o das referências.
+     Elas reprovam em contraste (2:1) e o texto meta tem 11px — ilegível
+     em tela de notebook no sol. A hierarquia aqui vem do TAMANHO, da
+     CAIXA ALTA e da família mono, não de apagar a cor. */
+
+  --line:       rgba(0, 0, 0, 0.12);
+  --line-soft:  rgba(0, 0, 0, 0.06);
+
+  --accent:     #FF5700;   /* laranja da marca */
+  --brand-azul: #00269F;
+  --brand-ciano:#00CFCD;
+
+  /* Sobre fundo escuro */
+  --ink-inv:       #FFFFFF;
+  --ink-inv-soft:  rgba(255, 255, 255, 0.74);
+  --ink-inv-faint: rgba(255, 255, 255, 0.56);
+  --line-inv:      rgba(255, 255, 255, 0.18);
+
+  /* ---------- TIPOGRAFIA ---------- */
+  --font-sans: 'Inter Tight', 'Inter', -apple-system, BlinkMacSystemFont,
+               'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo,
+               Consolas, monospace;
+
+  /* Escala fluida. O impacto vem do TAMANHO, nunca do peso.
+     Peso máximo em display é 400 — essa é a regra da casa. */
+  --t-display-xl: clamp(3.25rem, 13.2vw, 15.5rem);
+  --t-display-l:  clamp(2.75rem, 8.5vw,  8.5rem);
+  --t-display-m:  clamp(2rem,    4.6vw,  4.25rem);
+  --t-heading:    clamp(1.375rem, 2.2vw, 2.125rem);
+  --t-lead:       clamp(1.125rem, 1.9vw, 1.75rem);
+  --t-body:       clamp(0.9375rem, 1.02vw, 1.0625rem);
+  --t-small:      0.8125rem;
+  --t-meta:       0.6875rem;
+
+  --lh-display: 0.88;
+  --lh-heading: 1.08;
+  --lh-body:    1.55;
+
+  /* Tracking negativo em escala grande é o que faz parecer Neue Haas
+     e não Arial esticada. Quanto maior o texto, mais apertado. */
+  --tr-display-xl: -0.045em;
+  --tr-display-l:  -0.038em;
+  --tr-display-m:  -0.028em;
+  --tr-heading:    -0.02em;
+  --tr-body:       -0.011em;
+  --tr-meta:        0.09em;
+
+  /* ---------- ESPAÇO ---------- */
+  --s-1:  0.25rem;
+  --s-2:  0.5rem;
+  --s-3:  0.75rem;
+  --s-4:  1rem;
+  --s-6:  1.5rem;
+  --s-8:  2rem;
+  --s-12: 3rem;
+  --s-16: 4rem;
+  --s-24: 6rem;
+  --s-32: 8rem;
+
+  /* Respiro entre seções. Já foi mais generoso; apertado em ~35% porque
+     o vazio entre blocos estava competindo com o conteúdo. */
+  --section: clamp(3.25rem, 6.5vw, 6.5rem);
+
+  /* ---------- GRID ---------- */
+  --max:    1680px;
+  --gutter: clamp(1.125rem, 2.4vw, 2rem);
+  --pad:    clamp(1.125rem, 3.2vw, 3rem);
+  --cols:   12;
+
+  /* ---------- FORMA ---------- */
+  --r-lg: 24px;   /* blocos de seção */
+  --r-md: 16px;   /* imagens, cartões */
+  --r-sm: 999px;  /* pílulas */
+
+  /* ---------- MOVIMENTO ----------
+     Uma curva só para o site inteiro. Consistência > variedade. */
+  --ease:      cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-io:   cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast:  240ms;
+  --dur:       620ms;
+  --dur-slow:  1100ms;
+
+  --z-nav: 100;
+  --z-overlay: 200;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-fast: 1ms; --dur: 1ms; --dur-slow: 1ms; }
+}

@@ -1,0 +1,654 @@
+/* ============================================================
+   COMPONENTES
+   ============================================================ */
+
+/* ---------- NAVEGAÇÃO ----------
+   Fina, fixa, quase invisível. Reage ao scroll ganhando um fundo
+   fosco só quando sai do topo. Nunca compete com o conteúdo. */
+
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: var(--z-nav);
+  padding-block: var(--s-4);
+  transition: background var(--dur-fast) var(--ease),
+              backdrop-filter var(--dur-fast) var(--ease),
+              border-color var(--dur-fast) var(--ease);
+  border-bottom: 1px solid transparent;
+}
+.nav.is-stuck {
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+  backdrop-filter: blur(18px) saturate(1.4);
+  -webkit-backdrop-filter: blur(18px) saturate(1.4);
+  border-bottom-color: var(--line-soft);
+}
+.nav__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--s-6); }
+
+.wordmark {
+  font-size: 0.9375rem;
+  letter-spacing: -0.03em;
+  font-weight: 400;
+  white-space: nowrap;
+}
+.wordmark { display: inline-flex; align-items: center; }
+.wordmark img { display: block; }
+
+.nav__links { display: none; gap: var(--s-8); }
+@media (min-width: 800px) { .nav__links { display: flex; } }
+
+/* Sublinhado que cresce da esquerda no hover — o único
+   "efeito" de link do site, usado em todo lugar. */
+.nav__link {
+  position: relative;
+  font-size: var(--t-small);
+  letter-spacing: -0.008em;
+  padding-block: 2px;
+}
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-fast) var(--ease);
+}
+.nav__link:hover::after,
+.nav__link[aria-current='page']::after { transform: scaleX(1); }
+.nav__link[aria-current='page'] { color: var(--ink); }
+
+.nav__toggle {
+  display: inline-flex; align-items: center; gap: var(--s-2);
+  background: none; border: 0; cursor: pointer; padding: var(--s-2) 0;
+  font-size: var(--t-small); letter-spacing: -0.008em;
+}
+@media (min-width: 800px) { .nav__toggle { display: none; } }
+
+/* Menu mobile: cobre a tela inteira, links em escala display. */
+.menu {
+  position: fixed; inset: 0; z-index: var(--z-overlay);
+  background: var(--paper);
+  display: grid; grid-template-rows: auto 1fr auto;
+  padding: var(--s-4) var(--pad) var(--s-8);
+  opacity: 0; visibility: hidden;
+  transition: opacity var(--dur) var(--ease), visibility var(--dur);
+}
+.menu.is-open { opacity: 1; visibility: visible; }
+.menu__list { display: flex; flex-direction: column; justify-content: center; gap: var(--s-2); }
+.menu__link {
+  font-size: clamp(2.25rem, 11vw, 4rem);
+  letter-spacing: var(--tr-display-m);
+  line-height: 1.06;
+  opacity: 0; transform: translateY(14px);
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.menu.is-open .menu__link { opacity: 1; transform: none; }
+.menu.is-open .menu__link:nth-child(1) { transition-delay: 60ms; }
+.menu.is-open .menu__link:nth-child(2) { transition-delay: 110ms; }
+.menu.is-open .menu__link:nth-child(3) { transition-delay: 160ms; }
+.menu.is-open .menu__link:nth-child(4) { transition-delay: 210ms; }
+
+/* ---------- HERO ----------
+   Tipografia em escala máxima com vídeo por dentro das letras.
+   O fallback (sem suporte a background-clip:text, ou reduced-motion)
+   é texto sólido — nunca some, nunca quebra. */
+
+.hero { padding-top: clamp(6rem, 13vh, 9rem); padding-bottom: var(--s-16); }
+
+/* Linha de meta ACIMA do título, como na revisão.
+   A régua embaixo dela é o primeiro "ponto de luz" da paleta: um fio de
+   1px que atravessa do ciano ao azul ao laranja em opacidade baixíssima.
+   De longe lê como uma linha cinza; de perto tem a marca dentro. */
+.hero__top {
+  position: relative;
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--s-4);
+  padding-bottom: var(--s-4);
+  margin-bottom: clamp(1.5rem, 4vw, 3rem);
+}
+.hero__top::after {
+  content: '';
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 1px;
+  background:
+    linear-gradient(90deg,
+      var(--brand-ciano) 0%,
+      var(--brand-azul)  38%,
+      var(--accent)      72%,
+      transparent        100%);
+  opacity: 0.5;
+}
+
+/* O ponto azul fechando o título — eco do ponto laranja do logo.
+   É um círculo de verdade, não o glifo do ponto final: a fonte desenha
+   um quadradinho, e o logo tem um círculo. Dimensionado em em, então
+   acompanha a escala fluida do título. */
+.hero__dot {
+  display: inline-block;
+  width: 0.145em;
+  height: 0.145em;
+  margin-left: 0.035em;
+  border-radius: 50%;
+  background: var(--brand-azul);
+  vertical-align: baseline;
+}
+
+.hero__title {
+  position: relative;
+  display: block;
+  margin: 0;
+}
+
+/* O palco: vídeo ao fundo, título por cima em blend screen.
+   screen(papel, vídeo) ≈ papel  → o entorno continua limpo
+   screen(preto, vídeo) = vídeo  → o vídeo aparece só dentro das letras */
+.hero__stage {
+  position: relative;
+  isolation: isolate;      /* o blend não vaza para o resto da página */
+  background: var(--paper);
+}
+.hero__stage video {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.hero__fill {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin: 0;
+  color: #000;
+  background: var(--paper);
+  mix-blend-mode: screen;
+}
+/* Sem suporte a blend, com reduced-motion, ou se o vídeo não tocar:
+   texto sólido comum. Nunca some, nunca quebra. */
+.hero.is-solid .hero__fill,
+.hero__fill--solid {
+  mix-blend-mode: normal;
+  background: transparent;
+  color: var(--ink);
+}
+@supports not (mix-blend-mode: screen) {
+  .hero__fill { mix-blend-mode: normal; background: transparent; color: var(--ink); }
+  .hero__stage video { display: none; }
+}
+
+.hero__foot {
+  display: grid;
+  gap: var(--s-8);
+  margin-top: var(--s-12);
+  align-items: end;
+}
+@media (min-width: 900px) {
+  .hero__foot { grid-template-columns: minmax(0, 1fr) auto; align-items: end; }
+}
+.hero__scroll {
+  display: inline-flex; align-items: center; gap: var(--s-3);
+}
+.hero__scroll-line {
+  display: block; width: 3.5rem; height: 1px;
+  background: linear-gradient(90deg, var(--brand-ciano), var(--brand-azul));
+  transform-origin: left;
+  animation: sweep 2.6s var(--ease-io) infinite;
+}
+@keyframes sweep {
+  0%, 100% { transform: scaleX(0.25); opacity: 0.4; }
+  50%      { transform: scaleX(1);    opacity: 1; }
+}
+
+/* ---------- ÍNDICE DE PROJETOS ----------
+   Nome e serviço ACIMA da imagem (como nas referências). Isso faz o
+   olho ler o título antes de mergulhar na foto, e cria uma linha
+   tipográfica repetida que organiza a página inteira. */
+
+.projects { display: grid; gap: var(--s-16) var(--gutter); }
+@media (min-width: 700px)  { .projects { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .projects { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* Home e índice usam o MESMO grid: colunas iguais, tudo alinhado.
+   Os cartões têm todos a mesma proporção, então as linhas de texto
+   acima e abaixo das imagens batem entre as colunas. */
+
+.project-card { display: block; }
+.project-card__head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--s-4);
+  padding-bottom: var(--s-3);
+  margin-bottom: var(--s-4);
+  border-bottom: 1px solid var(--line);
+}
+.project-card__title {
+  font-size: var(--t-heading);
+  letter-spacing: var(--tr-heading);
+  line-height: 1.1;
+  font-weight: 400;
+}
+.project-card__media { overflow: hidden; border-radius: var(--r-md); }
+.project-card__media img {
+  transition: transform var(--dur-slow) var(--ease), filter var(--dur) var(--ease);
+  will-change: transform;
+}
+.project-card:hover .project-card__media img { transform: scale(1.035); }
+/* Sem página ainda: nada de cursor de link nem de sublinhado no título. */
+.project-card--sem-link { cursor: default; }
+
+.project-card__sub {
+  margin-top: var(--s-3);
+  display: flex; justify-content: space-between; gap: var(--s-4);
+}
+/* Uma linha só, sempre: se um nome for longo, ele corta com reticências.
+   Quebrar aqui desalinharia a linha de base entre as colunas do grid. */
+.project-card__sub > * {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.project-card__sub > :last-child { flex: 1 1 auto; max-width: 100%; }
+
+/* Projeto ainda sem imagem: espaço reservado, honesto, sem foto falsa. */
+.media__empty {
+  position: absolute; inset: 0;
+  display: grid; place-items: center;
+  border: 1px dashed var(--line);
+  border-radius: inherit;
+  color: var(--ink-faint);
+  background: var(--paper);
+}
+
+/* ---------- PÁGINA DE PROJETO ----------
+   Coluna esquerda rola com as imagens; painel direito fica grudado.
+   O cliente nunca perde de vista escopo e créditos enquanto navega
+   pelas fotos. É a peça que resolve vitrine + credibilidade junto. */
+
+.project-layout { display: grid; gap: var(--s-12) var(--gutter); align-items: start; }
+@media (min-width: 1000px) {
+  .project-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 22rem); gap: var(--s-16) var(--s-16); }
+}
+
+.project-panel { display: flex; flex-direction: column; gap: var(--s-6); }
+@media (min-width: 1000px) {
+  .project-panel {
+    position: sticky;
+    top: clamp(5.5rem, 12vh, 7.5rem);
+    max-height: calc(100vh - 9rem);
+    overflow-y: auto;
+    scrollbar-width: thin;
+  }
+}
+
+.spec { border-top: 1px solid var(--line); padding-top: var(--s-3); }
+.spec__label { margin-bottom: var(--s-2); }
+.spec__value { font-size: var(--t-small); line-height: 1.5; }
+.spec__value li + li { margin-top: 2px; }
+
+.project-body { display: flex; flex-direction: column; gap: var(--s-12); }
+.project-body p { max-width: 62ch; color: var(--ink-soft); }
+.project-body h2 {
+  font-size: var(--t-display-m);
+  letter-spacing: var(--tr-display-m);
+  line-height: var(--lh-display);
+  font-weight: 400;
+  margin-bottom: var(--s-4);
+}
+/* Capítulo dentro de um case guarda-chuva (Polar Brasil).
+   Uma régua fina abre cada campanha: separa sem criar outra página. */
+.project-body h3 {
+  font-size: var(--t-heading);
+  line-height: var(--lh-heading);
+  letter-spacing: var(--tr-heading);
+  font-weight: 400;
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--line);
+  margin-bottom: var(--s-2);
+}
+
+/* Afirmação: um parágrafo em corpo grande no meio do case.
+   Escrito com "> " no markdown. É o ponto alto da página, então
+   aparece no máximo uma vez por projeto. */
+.project-body blockquote {
+  font-size: var(--t-display-m);
+  line-height: var(--lh-display);
+  letter-spacing: var(--tr-display-m);
+  color: var(--ink);
+  max-width: 20ch;
+  text-wrap: balance;
+  padding-block: var(--s-4);
+}
+.project-body blockquote p { max-width: none; color: inherit; font-size: inherit; }
+
+.project-body figure { margin: 0; }
+.project-body figcaption { margin-top: var(--s-3); }
+.project-body img { border-radius: var(--r-md); width: 100%; }
+
+/* Par de imagens lado a lado dentro do corpo do case. */
+.pair { display: grid; gap: var(--gutter); }
+@media (min-width: 700px) {
+  .pair { grid-template-columns: repeat(var(--n, 2), minmax(0, 1fr)); }
+}
+/* Fileira de três ou mais: vira catálogo, com respiro menor. */
+@media (min-width: 700px) {
+  .pair:not([style*="--n:2"]) { gap: calc(var(--gutter) * 0.7); }
+}
+
+/* ---------- METODOLOGIA (interativa) ----------
+   Etapas numeradas que abrem ao clique. É o momento "interativo"
+   da home, colocado onde ele informa em vez de só enfeitar. */
+
+.method { border-top: 1px solid var(--line); }
+.method__item { border-bottom: 1px solid var(--line); position: relative; }
+/* Ponto de luz: a etapa aberta ganha um fio ciano→azul na borda esquerda. */
+.method__item::before {
+  content: '';
+  position: absolute; left: calc(var(--s-4) * -1); top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--brand-ciano), var(--brand-azul));
+  transform: scaleY(0); transform-origin: top;
+  transition: transform var(--dur) var(--ease);
+}
+.method__item.is-open::before { transform: scaleY(1); }
+
+.method__trigger {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr) 2rem;
+  align-items: center;
+  gap: var(--s-4);
+  padding-block: clamp(1.25rem, 2.6vw, 2rem);
+  background: none; border: 0; cursor: pointer;
+  text-align: left;
+  transition: opacity var(--dur-fast) var(--ease);
+}
+.method__trigger:hover { opacity: 0.55; }
+.method__num {
+  font-family: var(--font-mono); font-size: var(--t-meta);
+  color: var(--ink-faint); letter-spacing: 0.09em;
+  transition: color var(--dur) var(--ease);
+}
+.method__item.is-open .method__num { color: var(--brand-azul); }
+.method__name {
+  font-size: clamp(1.5rem, 3.4vw, 2.75rem);
+  letter-spacing: var(--tr-display-m);
+  line-height: 1.06;
+  font-weight: 400;
+}
+.method__sign { position: relative; width: 14px; height: 14px; justify-self: end; }
+.method__sign::before,
+.method__sign::after {
+  content: ''; position: absolute; inset: 50% 0 auto 0;
+  height: 1px; background: currentColor;
+  transition: transform var(--dur) var(--ease);
+}
+.method__sign::after { transform: rotate(90deg); }
+.method__item.is-open .method__sign::after { transform: rotate(0deg); }
+
+.method__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur) var(--ease);
+}
+.method__item.is-open .method__panel { grid-template-rows: 1fr; }
+.method__panel > div { overflow: hidden; }
+.method__body {
+  display: grid; gap: var(--s-6);
+  padding-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+@media (min-width: 800px) {
+  .method__body { grid-template-columns: 3.5rem minmax(0, 1fr) minmax(0, 20rem); gap: var(--s-4) var(--s-8); }
+  .method__body > :first-child { grid-column: 2; }
+}
+.method__body p { color: var(--ink-soft); max-width: 60ch; }
+
+/* ---------- ÁREAS DE ATUAÇÃO ---------- */
+
+.services { border-top: 1px solid var(--line); }
+.service {
+  display: grid; gap: var(--s-2) var(--s-8);
+  padding-block: clamp(1.25rem, 2.4vw, 1.75rem);
+  border-bottom: 1px solid var(--line);
+  transition: padding-left var(--dur) var(--ease);
+}
+@media (min-width: 800px) {
+  .service { grid-template-columns: 3.5rem minmax(0, 21rem) minmax(0, 1fr); align-items: baseline; }
+  .service:hover { padding-left: var(--s-4); }
+}
+.service__name { font-size: var(--t-heading); letter-spacing: var(--tr-heading); line-height: 1.15; }
+.service__desc { color: var(--ink-soft); max-width: 56ch; }
+
+/* A lista de entregas de cada área. Em duas colunas no desktop para
+   não virar uma torre — e para a linha da área ao lado não afundar. */
+.service__list {
+  color: var(--ink-soft);
+  font-size: var(--t-small);
+  columns: 1;
+  column-gap: var(--s-8);
+}
+.service__list li { break-inside: avoid; padding-block: 1px; }
+@media (min-width: 900px)  { .service__list { columns: 2; } }
+@media (min-width: 1300px) { .service__list { columns: 3; } }
+
+/* ---------- CLIENTES ---------- */
+
+.clients { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; }
+.clients .client { box-shadow: 0 0 0 1px var(--line); }
+@media (min-width: 640px)  { .clients { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1000px) { .clients { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+.client {
+  background: var(--surface);
+  display: grid; place-items: center;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  padding: clamp(1rem, 2.4vw, 1.75rem);
+  font-size: var(--t-small);
+  color: var(--ink-soft);
+  text-align: center;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+/* Os logos vêm em PNG preto com fundo transparente. No hover, a célula
+   inverte para preto — então o logo inverte junto, via filtro. */
+/* Altura em unidade absoluta, não em %: dentro de uma célula com
+   aspect-ratio, a porcentagem não resolve e os logos altos vazam.
+   --escala equilibra o peso óptico: logos largos e pesados (Skol, Polar)
+   ocupam mais área com a mesma altura e precisam encolher para não
+   dominar a grade. Ajuste por logo em content/site.yml. */
+.client img {
+  --escala: 1;
+  max-width: calc(62% * var(--escala));
+  max-height: calc(clamp(1.5rem, 3vw, 2.5rem) * var(--escala));
+  width: auto;
+  object-fit: contain;
+  transition: filter var(--dur-fast) var(--ease);
+}
+/* No hover a célula fica preta e o logo vira branco sólido.
+   brightness(0)+invert(1) em vez de invert(1) puro: assim os logos
+   coloridos (o vermelho da Polar, o laranja da triwayz) viram branco
+   limpo, e não o negativo da cor. */
+.client:hover img { filter: brightness(0) invert(1); }
+.client:hover { background: var(--night); color: var(--ink-inv); }
+
+/* ---------- BOTÕES / LINKS ---------- */
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s-3);
+  padding: 0.95rem 1.6rem;
+  border-radius: var(--r-sm);
+  background: var(--ink); color: var(--paper);
+  border: 1px solid var(--ink);
+  font-size: var(--t-small);
+  letter-spacing: -0.006em;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease),
+              transform var(--dur-fast) var(--ease);
+}
+.btn:hover { background: transparent; color: var(--ink); }
+.btn:active { transform: scale(0.985); }
+.btn--ghost { background: transparent; color: var(--ink); }
+.btn--ghost:hover { background: var(--ink); color: var(--paper); }
+.btn--inv { background: var(--ink-inv); color: var(--night); border-color: var(--ink-inv); }
+.btn--inv:hover { background: transparent; color: var(--ink-inv); }
+.btn--wide { width: 100%; padding-block: clamp(1.25rem, 3vw, 2rem); }
+
+/* Link sublinhado que "desliza": o padrão de link inline do site. */
+.link-slide {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 2px;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 100% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size var(--dur) var(--ease);
+}
+.link-slide:hover { background-size: 0% 1px; background-position: 100% 100%; }
+
+/* ---------- CONTATO ---------- */
+
+.contact__mail {
+  display: inline-block;
+  font-size: clamp(1.75rem, 6.2vw, 5.5rem);
+  letter-spacing: var(--tr-display-m);
+  line-height: 1.02;
+  word-break: break-word;
+}
+.contact__grid { display: grid; gap: var(--s-12) var(--gutter); }
+@media (min-width: 800px) { .contact__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* ---------- RODAPÉ ---------- */
+
+.footer__mark img {
+  width: clamp(11rem, 34vw, 30rem);
+  height: auto;
+}
+.footer__cols { display: grid; gap: var(--s-8) var(--gutter); }
+@media (min-width: 700px) { .footer__cols { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.footer__col li + li { margin-top: var(--s-2); }
+
+/* ---------- REVELAÇÃO NO SCROLL ----------
+   Um único gesto: sobe 20px e aparece. Aplicado com moderação —
+   se tudo anima, nada chama atenção. */
+
+/* Nota: o estado inicial só se aplica quando o JS está ativo (classe .js
+   no <html>, definida por um script inline no <head>). Sem JS, o
+   conteúdo aparece normalmente — nada de página em branco. */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease);
+}
+.js [data-reveal].is-in { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] { opacity: 1; transform: none; }
+}
+
+/* ---------- SOBRE ---------- */
+
+.about { display: grid; gap: var(--s-12) var(--gutter); }
+@media (min-width: 900px) {
+  .about { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s-16); }
+}
+.about__extra {
+  margin-top: var(--s-8);
+  padding-top: var(--s-6);
+  border-top: 1px solid var(--line);
+}
+
+/* ---------- METODOLOGIA: intro em duas colunas ---------- */
+
+.method__intro {
+  display: grid; gap: var(--s-6) var(--gutter);
+  margin-bottom: var(--section);
+}
+@media (min-width: 900px) {
+  .method__intro { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--s-16); }
+}
+.method__intro .lead { max-width: 26ch; }
+.method__intro .muted { max-width: 58ch; }
+
+/* ---------- DUPLO DIAMANTE (vertical) ----------
+   O desenho fica fixo na coluna da esquerda enquanto as etapas rolam do
+   lado direito. Abrir uma etapa acende o quadrante correspondente — os
+   dois viram uma coisa só. */
+
+.method__layout { display: grid; gap: var(--s-12) var(--gutter); align-items: start; }
+@media (min-width: 1000px) {
+  .method__layout { grid-template-columns: minmax(0, 10rem) minmax(0, 1fr); gap: var(--s-16); }
+}
+
+.dia__wrap { display: none; }
+@media (min-width: 1000px) {
+  /* Numa tela estreita um diagrama 1:4 ao lado de texto não funciona —
+     e o acordeão nomeia tudo sozinho. Some no mobile, por escolha. */
+  .dia__wrap {
+    display: block;
+    position: sticky;
+    top: clamp(6rem, 14vh, 9rem);
+  }
+}
+/* O desenho acompanha a altura do texto ao lado — não domina a coluna. */
+.dia {
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: 28rem;
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.dia__axis { stroke: var(--line); stroke-width: 1; }
+
+.dia__stage path {
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.2);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  transition: stroke var(--dur) var(--ease), stroke-width var(--dur) var(--ease);
+}
+.dia__guide {
+  stroke: var(--line-soft);
+  stroke-width: 1;
+  stroke-dasharray: 3 5;
+}
+.dia__dot {
+  fill: var(--surface);
+  stroke: rgba(0, 0, 0, 0.28);
+  stroke-width: 1.5;
+  transition: fill var(--dur) var(--ease), stroke var(--dur) var(--ease);
+}
+
+/* Quadrante aceso — onde o azul e o ciano entram como ponto de luz. */
+.dia__stage.is-active path { stroke: var(--brand-azul); stroke-width: 2.5; }
+.dia__stage.is-active .dia__dot { fill: var(--brand-ciano); stroke: var(--brand-azul); }
+
+  .dia__move  { font-size: 15px; }
+}
+
+/* ---------- PEÇA DE MARCA ----------
+   Logo em PNG com fundo transparente. Sem cartão, sem cantos, sem corte:
+   o desenho encosta no fundo da página e se dissolve nele. O respiro
+   em volta é o que faz a peça parecer marca, e não foto de marca. */
+.marca { margin: 0; }
+.marca__box {
+  display: grid;
+  place-items: center;
+  padding: clamp(1.5rem, 5vw, 4rem);
+}
+.marca__box img {
+  width: auto;
+  max-width: 100%;
+  max-height: 46vh;
+  height: auto;
+  object-fit: contain;
+}
+/* Peça larga, tipo prancha de sistema: ocupa a coluna inteira.
+   Limitar pela altura, como se faz com logo, deixaria ela pequena demais. */
+/* Vetor inline: escala com a coluna, sem cartão e sem fundo. */
+.marca--vetor .marca__box { padding-inline: 0; }
+.marca--vetor svg { width: 100%; height: auto; display: block; }
+
+.marca--larga .marca__box { padding-inline: 0; }
+.marca--larga .marca__box img { width: 100%; max-height: none; }

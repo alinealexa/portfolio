@@ -1,0 +1,229 @@
+# ============================================================
+# aa. creative studio — conteúdo global do site
+# Edite este arquivo e rode `npm run build`. Nada de mexer em HTML.
+# ============================================================
+
+marca:
+  nome: "aa. creative studio"
+  dominio: "aacreativestudio.com"
+
+seo:
+  titulo: "aa. creative studio"
+  descricao: >-
+    Studio de branding e comunicação com base em design e obsessão por
+    consistência. Posicionamento, identidade e comunicação para negócios
+    que querem crescer com consistência.
+  idioma: "pt-BR"
+
+hero:
+  linhas:
+    - "creative"
+    - "studio"
+  # Vídeo por dentro das letras. Arquivo em content/media/.
+  # Vazio = título sólido.
+  video: ""
+  frase: >-
+    Marcas relevantes começam com um bom design. Construímos posicionamento,
+    identidade e comunicação para negócios que querem crescer com consistência.
+  desde: "2017"
+
+# Use **assim** para grifar um trecho na cor azul da marca.
+# O ponto final vira um círculo laranja automaticamente.
+manifesto: >-
+  Somos um studio focado em **soluções criativas** para o crescimento do seu
+  negócio através da consolidação de **marcas fortes** e **consistentes**.
+
+# ------------------------------------------------------------
+# SOBRE — aparece logo abaixo do manifesto, na seção Studio
+# ------------------------------------------------------------
+sobre:
+  texto: >-
+    Traçamos estratégias assertivas para atingir o seu público de interesse e
+    construímos mensagens claras e relevantes para fidelizar os seus clientes.
+    Nossa expertise se concentra em marcas orientadas por propósito, com ênfase
+    no mercado de saúde e bem-estar esportivo, conectando criatividade, dados
+    e performance.
+  pessoa:
+    nome: "Aline Alexa"
+    cargo: "Diretora criativa"
+    bio: >-
+      Formada em Design pela ESPM, são 10 anos de marketing e construção
+      estratégica de marcas, com passagem por moda, branding e esportes. Foram
+      quatro anos na Ambev, liderando projetos de comunicação e inovação em uma
+      das maiores estruturas de marketing do mundo, e os últimos três anos na
+      gestão de marketing de marcas esportivas globais como a Polar. Também
+      empreende há três anos na intersecção entre design e esporte com o
+      aa.sports, negócio independente do studio.
+  # Link para o outro negócio
+  extra:
+    label: "aa.sports"
+    desc: "Negócio independente, na intersecção entre design e esporte."
+    url: ""
+
+# ------------------------------------------------------------
+# ÁREAS DE ATUAÇÃO
+# ------------------------------------------------------------
+areas_intro: >-
+  Trabalhamos em quatro frentes que se conversam: estratégia, identidade,
+  comunicação e performance. Elas podem vir juntas ou separadas, e o escopo
+  se ajusta ao momento do negócio.
+
+areas:
+  - nome: "Branding"
+    itens:
+      - "Posicionamento de marca"
+      - "Arquitetura de marca"
+      - "Plataforma de marca (propósito, visão, valores)"
+      - "Cenários para inovação"
+      - "Pesquisa de mercado"
+      - "Pesquisa com consumidor"
+      - "Persona e jornada"
+      - "Territórios de comunicação"
+      - "Tom de voz"
+
+  - nome: "Design"
+    itens:
+      - "Logo"
+      - "Paleta cromática"
+      - "Paleta tipográfica"
+      - "Iconografia"
+      - "Estilo fotográfico"
+      - "Estilo de ilustração"
+      - "Material promocional"
+      - "Elementos gráficos"
+      - "Aplicações de marca"
+
+  - nome: "Plano de marketing"
+    itens:
+      - "Análise da concorrência"
+      - "Definição de objetivos e KPIs"
+      - "Mapeamento de territórios de comunicação"
+      - "Definição de canais de comunicação"
+      - "Criação de pautas e cronograma de conteúdos para redes sociais"
+      - "Agendamento de postagens"
+      - "Mapeamento de experiências para consumidores"
+
+  - nome: "Performance"
+    itens:
+      - "Orçamento de investimento para mídia paga"
+      - "Gestão e monitoramento de mídia"
+      - "Estratégia de collabs"
+      - "Mapeamento de influenciadores"
+      - "Análise de métricas"
+
+# ------------------------------------------------------------
+# CLIENTES
+# ------------------------------------------------------------
+# Cada cliente pode ter um logo (arquivo em static/brand/clientes/).
+# Sem logo, aparece o nome em texto — a grade aceita os dois.
+clientes:
+  - nome: "Ambev"
+    escala: 0.9
+    logo: "ambev.png"
+  - nome: "Polar"
+    escala: 0.88
+    logo: "polar.png"
+  - nome: "Skol"
+    escala: 0.72
+    logo: "skol.png"
+  - nome: "Z-Tech"
+    logo: "z-tech.png"
+  - nome: "BR Esportes"
+    escala: 0.85
+    logo: "br-esportes.png"
+  - nome: "aa.sports"
+    escala: 0.95
+    logo: "aa-sports.png"
+  - nome: "triwayz"
+    logo: "triwayz.png"
+  - nome: "Tricycling"
+    logo: "tricycling.png"
+  - nome: "JF Pasqua"
+    logo: "jf-pasqua.png"
+  - nome: "Twenty Four Seven"
+    escala: 1.1
+    logo: "twenty-four-seven.png"
+  - nome: "31 restaurante"
+    logo: "34-restaurante.png"
+  - nome: "Blooms"
+    logo: "blooms.png"
+  - nome: "Afuera"
+    logo: "afuera.png"
+  - nome: "NutriSofía"
+    logo: "nutrisofia.png"
+  - nome: "Delinna Travel"
+    logo: "delinna-travel.png"
+  - nome: "AME Acessórios"
+    logo: "ame-acessorios.png"
+  - nome: "Los Burritos de Leo"
+    logo: "los-burritos-de-leo.png"
+  - nome: "Nara"          # confirmar o nome desta marca
+    logo: "nara.png"
+  - nome: "Dra. Lais Campos"
+    escala: 1.1
+    logo: "dra-lais-campos.png"
+  - nome: "Upchain"
+    escala: 1.05
+    logo: "upchain.png"
+  - nome: "D-Gym by coach Day"
+    logo: "d-gym.png"
+  - nome: "MESP"
+    logo: "mesp.png"
+
+# ------------------------------------------------------------
+# METODOLOGIA — duplo diamante + acordeão
+# Cada etapa diverge ou converge; é isso que desenha o diagrama.
+# ------------------------------------------------------------
+metodologia:
+  intro: >-
+    A metodologia é um dos nossos principais pilares como studio. Entendemos
+    que é crucial para solucionar problemas e desenvolver entregas inovadoras.
+  texto: >-
+    Nossa metodologia oferece diretrizes e etapas estruturadas para alcançar
+    resultados desejados de forma consistente, de acordo com o cenário
+    individualizado dos nossos clientes. Nossa abordagem é centrada nas pessoas
+    e enfatiza a compreensão dos usuários e a criação de soluções que atendam às
+    suas necessidades. Promovemos a criatividade, a colaboração e o foco no
+    cliente final, levando a resultados eficazes e impactantes.
+  etapas:
+    - nome: "Imersão"
+      movimento: "divergir"
+      desc: >-
+        Mergulhamos no negócio, no mercado e no consumidor. Benchmark,
+        entrevistas e leitura do cenário atual da marca.
+      entrega: "Diagnóstico de marca e análise da concorrência"
+
+    - nome: "Síntese"
+      movimento: "convergir"
+      desc: >-
+        Transformamos o volume de informação em direção. Definimos o problema
+        real a ser resolvido e os territórios onde a marca pode jogar.
+      entrega: "Plataforma de marca: propósito, posicionamento, persona e tom de voz"
+
+    - nome: "Experimentação"
+      movimento: "divergir"
+      desc: >-
+        Exploramos caminhos criativos, testamos rotas de identidade e
+        comunicação antes de fechar qualquer decisão.
+      entrega: "Rotas criativas apresentadas e uma escolhida em conjunto"
+
+    - nome: "Entrega"
+      movimento: "convergir"
+      desc: >-
+        Refinamos a rota escolhida e construímos o sistema completo, pronto
+        para rodar.
+      entrega: "Identidade visual, manual de aplicação e plano de comunicação"
+
+# ------------------------------------------------------------
+contato:
+  email: "alinealexa@aacreativestudio.com"   # confirmar: no doc estava "aacreativestudi.com"
+  frase: >-
+    Tem um projeto de marca em andamento ou parado no meio? Vamos conversar.
+  cidade: "São Paulo & Mexico City"
+  redes:
+    - nome: "Instagram"
+      url: "https://www.instagram.com/alinealexa/"
+    - nome: "Behance"
+      url: "https://www.behance.net/alinealexa"
+    - nome: "LinkedIn"
+      url: "https://www.linkedin.com/in/alinealexa/"
