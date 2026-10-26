@@ -11,6 +11,7 @@ import { fileURLToPath } from 'node:url';
 import * as yaml from 'js-yaml';
 import { marked } from 'marked';
 
+import crypto from 'node:crypto';
 import { processImage, imgTag, isImage, isVideo } from './images.mjs';
 import * as T from './templates.mjs';
 
@@ -37,6 +38,12 @@ function parseFrontMatter(raw) {
 
 /* ---------- projetos ---------- */
 
+/* `![legenda](arquivo.mp4 "https://link")` — o título vira link da legenda. */
+function splitRef(ref) {
+  const m = String(ref).trim().match(/^(\S+)(?:\s+"([^"]*)")?$/);
+  return m ? { src: m[1], href: m[2] || '' } : { src: ref, href: '' };
+}
+
 async function loadProject(dir, slugFromDir) {
   const mdPath = path.join(dir, 'projeto.md');
   if (!(await exists(mdPath))) return null;
@@ -54,15 +61,30 @@ async function loadProject(dir, slugFromDir) {
   // Índice de todas as imagens da pasta, pelo nome do arquivo.
   const files = (await readDirSafe(imagesDir)).filter((d) => d.isFile());
   const byName = new Map();
+  const videos = new Map();
   for (const f of files) {
+    if (isVideo(f.name)) { videos.set(f.name, path.join(imagesDir, f.name)); continue; }
     if (!isImage(f.name)) continue;
     byName.set(f.name, path.join(imagesDir, f.name));
   }
-  const ordered = [...byName.keys()].sort();
+  const ordered = [...byName.keys()].filter((n) => !videos.has(n.replace(/\.[^.]+$/, '.mp4'))).sort();
 
   const resolve = async (ref) => {
     if (!ref) return null;
     const name = path.basename(String(ref));
+    /* Vídeo: o .mp4 já entra comprimido para web (720px, H.264, faststart).
+       O pôster é o .jpg de mesmo nome, ao lado dele. */
+    if (videos.has(name)) {
+      const vsrc = videos.get(name);
+      const buf = await fs.readFile(vsrc);
+      const hash = crypto.createHash('sha1').update(buf).digest('hex').slice(0, 8);
+      const outName = name.replace(/\.[^.]+$/, '') + '-' + hash + '.mp4';
+      await fs.mkdir(outDir, { recursive: true });
+      await fs.writeFile(path.join(outDir, outName), buf);
+      const posterName = name.replace(/\.[^.]+$/, '.jpg');
+      const poster = byName.has(posterName) ? await processImage(byName.get(posterName), outDir, publicBase, imgCache) : null;
+      return { video: `${publicBase}/${outName}`, poster };
+    }
     const src = byName.get(name);
     if (!src) {
       console.warn(`  ! imagem não encontrada em ${slug}: ${name}`);
@@ -105,14 +127,14 @@ async function loadProject(dir, slugFromDir) {
 
   // duas ou mais imagens na MESMA linha viram uma fileira
   md = md.replace(/!\[[^\]]*\]\([^)]+\)(?:[ \t]+!\[[^\]]*\]\([^)]+\))+/g, (bloco) => {
-    const itens = [...bloco.matchAll(/!\[([^\]]*)\]\(([^)]+)\)/g)].map((m) => ({ alt: m[1], src: m[2] }));
+    const itens = [...bloco.matchAll(/!\[([^\]]*)\]\(([^)]+)\)/g)].map((m) => ({ alt: m[1], ...splitRef(m[2]) }));
     placeholders.push({ kind: 'pair', items: itens });
     return `\n\n%%MEDIA${placeholders.length - 1}%%\n\n`;
   });
 
   // imagens soltas
   md = md.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, src) => {
-    placeholders.push({ kind: 'single', items: [{ alt, src }] });
+    placeholders.push({ kind: 'single', items: [{ alt, ...splitRef(src) }] });
     return `\n\n%%MEDIA${placeholders.length - 1}%%\n\n`;
   });
 
@@ -131,7 +153,17 @@ async function loadProject(dir, slugFromDir) {
     const vetor = (r) => `<figure class="marca marca--vetor"><div class="marca__box">${r.img.vetor}</div></figure>`;
 
     let out;
-    if (ph.kind === 'pair') {
+    if (resolved.some((r) => r.img?.video)) {
+      /* Fileira de vídeos verticais: mudos em loop, sem controles.
+         Clique abre em tela cheia com som. A legenda pode levar link. */
+      out = `<div class="pair pair--video" style="--n:${resolved.length}">${resolved.map((r, k) => {
+        if (!r.img?.video) return '';
+        const poster = r.img.poster ? ` poster="${r.img.poster.src}"` : '';
+        const href = ph.items[k].href;
+        const cap = r.alt ? `<figcaption class="meta">${href ? `<a href="${href}" target="_blank" rel="noopener">${r.alt} <span aria-hidden="true">↗</span></a>` : r.alt}</figcaption>` : '';
+        return `<figure class="video"><div class="media media--9-16"><video data-video src="${r.img.video}"${poster} muted loop playsinline preload="none" aria-label="${r.alt}"></video></div>${cap}</figure>`;
+      }).join('')}</div>`;
+    } else if (ph.kind === 'pair') {
       out = `<div class="pair" style="--n:${resolved.length}">${resolved.map((r, k) => r.img?.vetor ? vetor(r) : r.img
         ? (ehMarca(ph.items[k])
           ? `<figure class="marca${(r.img.ratio || 1) >= 1.6 ? ' marca--larga' : ''}"><div class="marca__box">${imgTag(r.img, { alt: r.alt, sizes: '(min-width:1000px) 32vw, 50vw' })}</div></figure>`

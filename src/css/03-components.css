@@ -497,6 +497,18 @@
   .pair:not([style*="--n:2"]) { gap: calc(var(--gutter) * 0.7); }
 }
 
+/* Vídeos verticais no corpo do case: loop mudo, sem controles.
+   O cursor e o clique dizem que tem som. */
+.video .media { cursor: pointer; }
+.video video { display: block; background: var(--line-soft); }
+.video figcaption a { color: inherit; text-decoration: none; }
+.video figcaption a:hover { color: var(--brand-azul); }
+.video video:fullscreen { object-fit: contain; background: #000; }
+.video video:-webkit-full-screen { object-fit: contain; background: #000; }
+@media (max-width: 699px) {
+  .pair--video { grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr)); gap: 8px; }
+}
+
 /* ---------- METODOLOGIA (interativa) ----------
    Etapas numeradas que abrem ao clique. É o momento "interativo"
    da home, colocado onde ele informa em vez de só enfeitar. */

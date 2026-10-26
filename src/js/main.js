@@ -160,4 +160,32 @@
   document.querySelectorAll('[data-year]').forEach(function (el) {
     el.textContent = String(new Date().getFullYear());
   });
+
+  /* ---------- VÍDEOS DO CASE: tocam mudos quando aparecem; clique abre com som ---------- */
+  var vids = document.querySelectorAll('[data-video]');
+  if (vids.length) {
+    var tocar = function (v) { var p = v.play(); if (p && p.catch) p.catch(function () {}); };
+    if ('IntersectionObserver' in window && !reduced) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (e) {
+          var v = e.target;
+          if (e.isIntersecting) { if (v.preload === 'none') v.preload = 'auto'; tocar(v); }
+          else if (!document.fullscreenElement) v.pause();
+        });
+      }, { threshold: 0.25 });
+      vids.forEach(function (v) { io.observe(v); });
+    }
+    vids.forEach(function (v) {
+      v.addEventListener('click', function () {
+        if (document.fullscreenElement) return;
+        v.muted = false; v.currentTime = 0; tocar(v);
+        if (v.requestFullscreen) v.requestFullscreen().catch(function () {});
+        else if (v.webkitEnterFullscreen) v.webkitEnterFullscreen();
+      });
+      v.addEventListener('webkitendfullscreen', function () { v.muted = true; });
+    });
+    document.addEventListener('fullscreenchange', function () {
+      if (!document.fullscreenElement) vids.forEach(function (v) { v.muted = true; });
+    });
+  }
 })();

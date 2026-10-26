@@ -39,17 +39,19 @@ corrida até a ideia do recorde, e outro sobre a preparação, com treinos de
 mais de 600 km por mês. A ideia era que a comunidade chegasse ao dia da prova
 torcendo por uma pessoa, não por um número.
 
+![Origem](video-origem.mp4 "https://www.instagram.com/reel/C93IMn_ypin/") ![Preparação](video-preparacao.mp4 "https://www.instagram.com/reel/C9chmGeOd95/") ![A prova](video-prova.mp4 "https://www.instagram.com/p/C-PgeBEuM2z/")
+
 ![](03.jpg) ![](04.jpg)
 
 Quando a prova não terminou como planejado, a comunicação não recuou.
 Trocamos a narrativa do recorde pela narrativa da decisão: abandonar no
 momento certo também é escolha de atleta.
 
-![](05.jpg) ![](06.jpg)
+![](05.jpg) ![](06.jpg) ![](07.jpg)
+
+![](08.jpg) ![](09.jpg)
 
 > Hoje não foi o dia. Era só o primeiro capítulo.
-
-![](07.jpg) ![](08.jpg)
 
 ## Resultado
 
