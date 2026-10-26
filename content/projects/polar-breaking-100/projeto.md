@@ -45,14 +45,6 @@ Quando a prova não terminou como planejado, a comunicação não recuou.
 Trocamos a narrativa do recorde pela narrativa da decisão: abandonar no
 momento certo também é escolha de atleta.
 
-![](05.jpg)
-
-![](06.jpg)
-
-![](07.jpg)
-
-![](09.jpg)
-
 > Hoje não foi o dia. Era só o primeiro capítulo.
 
 ## Resultado

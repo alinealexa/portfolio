@@ -154,14 +154,14 @@ async function loadProject(dir, slugFromDir) {
 
     let out;
     if (resolved.some((r) => r.img?.video)) {
-      /* Fileira de vídeos verticais: mudos em loop, sem controles.
-         Clique abre em tela cheia com som. A legenda pode levar link. */
+      /* Fileira de vídeos: a capa é uma foto parada (o .jpg de mesmo nome).
+         Clique abre o vídeo em tela cheia, com som. A legenda pode levar link. */
       out = `<div class="pair pair--video" style="--n:${resolved.length}">${resolved.map((r, k) => {
         if (!r.img?.video) return '';
         const poster = r.img.poster ? ` poster="${r.img.poster.src}"` : '';
         const href = ph.items[k].href;
         const cap = r.alt ? `<figcaption class="meta">${href ? `<a href="${href}" target="_blank" rel="noopener">${r.alt} <span aria-hidden="true">↗</span></a>` : r.alt}</figcaption>` : '';
-        return `<figure class="video"><div class="media media--9-16"><video data-video src="${r.img.video}"${poster} muted loop playsinline preload="none" aria-label="${r.alt}"></video></div>${cap}</figure>`;
+        return `<figure class="video"><div class="media media--4-5"><video data-video src="${r.img.video}"${poster} playsinline preload="none" aria-label="${r.alt}"></video><span class="video__play" aria-hidden="true"></span></div>${cap}</figure>`;
       }).join('')}</div>`;
     } else if (ph.kind === 'pair') {
       out = `<div class="pair" style="--n:${resolved.length}">${resolved.map((r, k) => r.img?.vetor ? vetor(r) : r.img
