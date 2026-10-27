@@ -125,6 +125,14 @@ async function loadProject(dir, slugFromDir) {
   const placeholders = [];
   let md = body;
 
+  /* ::: carrossel … ::: — as imagens do bloco viram um carrossel de verdade,
+     na ordem em que aparecem (um post de carrossel do Instagram, por exemplo). */
+  md = md.replace(/^:::[ \t]*carrossel[ \t]*\n([\s\S]*?)\n:::[ \t]*$/gm, (_, dentro) => {
+    const itens = [...dentro.matchAll(/!\[([^\]]*)\]\(([^)]+)\)/g)].map((m) => ({ alt: m[1], ...splitRef(m[2]) }));
+    placeholders.push({ kind: 'carousel', items: itens });
+    return `\n\n%%MEDIA${placeholders.length - 1}%%\n\n`;
+  });
+
   // duas ou mais imagens na MESMA linha viram uma fileira
   md = md.replace(/!\[[^\]]*\]\([^)]+\)(?:[ \t]+!\[[^\]]*\]\([^)]+\))+/g, (bloco) => {
     const itens = [...bloco.matchAll(/!\[([^\]]*)\]\(([^)]+)\)/g)].map((m) => ({ alt: m[1], ...splitRef(m[2]) }));
@@ -153,7 +161,15 @@ async function loadProject(dir, slugFromDir) {
     const vetor = (r) => `<figure class="marca marca--vetor"><div class="marca__box">${r.img.vetor}</div></figure>`;
 
     let out;
-    if (resolved.some((r) => r.img?.video)) {
+    if (ph.kind === 'carousel') {
+      const n = resolved.filter((r) => r.img && !r.img.vetor).length;
+      out = `<div class="carrossel" data-carrossel>
+        <div class="carrossel__track" data-carrossel-track tabindex="0" aria-label="Carrossel, ${n} imagens">${resolved.map((r) => r.img && !r.img.vetor
+          ? `<figure class="carrossel__slide"><div class="media media--4-5">${imgTag(r.img, { alt: r.alt, sizes: '(min-width:1000px) 28vw, 80vw' })}</div></figure>`
+          : '').join('')}</div>
+        <div class="carrossel__nav meta"><button type="button" data-carrossel-prev aria-label="Anterior">←</button><span data-carrossel-count>01 / ${String(n).padStart(2, '0')}</span><button type="button" data-carrossel-next aria-label="Próxima">→</button></div>
+      </div>`;
+    } else if (resolved.some((r) => r.img?.video)) {
       /* Fileira de vídeos: a capa é uma foto parada (o .jpg de mesmo nome).
          Clique abre o vídeo em tela cheia, com som. A legenda pode levar link. */
       out = `<div class="pair pair--video" style="--n:${resolved.length}">${resolved.map((r, k) => {

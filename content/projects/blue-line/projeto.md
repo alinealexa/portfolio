@@ -25,6 +25,8 @@ studio o aa.sports, um ateliê de quadros que transformam a prova de um atleta
 em peça de parede: o traçado do percurso, os dados da corrida e, se ele
 quiser, a própria medalha e o número de peito.
 
+![](foto-prateleira.jpg) ![](foto-parede.jpg)
+
 ![](quadro-tokyo.jpg) ![](quadro-kona.jpg) ![](quadro-boston.jpg)
 
 ![](quadro-spcity.jpg) ![](quadro-berlin.jpg) ![](quadro-santiago.jpg)
@@ -46,14 +48,16 @@ O lançamento foi construído como contagem regressiva: uma sequência de posts
 que apresenta a linha antes da marca, e um filme que transforma a linha azul
 em tudo o que acontece até a chegada.
 
-![](post-1.jpg) ![](post-2.jpg)
+::: carrossel
+![](post-1.jpg) ![](post-2.jpg) ![](post-3.jpg) ![](post-4.jpg) ![](post-5.jpg)
+:::
 
-![](post-3.jpg) ![](post-4.jpg)
-
-![](post-5.jpg) ![Filme de lançamento](video-lancamento.mp4)
+![Filme de lançamento](video-lancamento.mp4) ![Depoimento · Raissa Rossi](video-depoimento.mp4) ![Entrega](video-entrega.mp4)
 
 ## Resultado
 
 Mais de 500 quadros entregues, um catálogo que cobre as principais provas do
 mundo e uma comunidade de mais de 6 mil atletas acompanhando a marca no
 Instagram.
+
+![](foto-taupo.jpg)

@@ -519,6 +519,30 @@
   .video__play { left: 9px; bottom: 9px; border-width: 5px 0 5px 9px; }
 }
 
+/* Carrossel: rola de lado, encaixa slide a slide. O próximo aparece
+   cortado na borda, que é o que diz "tem mais". */
+.carrossel { position: relative; }
+.carrossel__track {
+  display: flex; gap: var(--gutter);
+  overflow-x: auto; scroll-snap-type: x mandatory;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  outline: none;
+}
+.carrossel__track::-webkit-scrollbar { display: none; }
+.carrossel__slide { flex: 0 0 82%; scroll-snap-align: start; margin: 0; }
+@media (min-width: 700px) { .carrossel__slide { flex-basis: calc((100% - var(--gutter)) / 2.25); } }
+.carrossel__nav {
+  display: flex; align-items: center; gap: 14px;
+  margin-top: var(--s-3);
+}
+.carrossel__nav button {
+  background: none; border: 0; padding: 4px 2px; cursor: pointer;
+  font: inherit; color: inherit; transition: color .2s ease, opacity .2s ease;
+}
+.carrossel__nav button:hover { color: var(--brand-azul); }
+.carrossel__nav button[disabled] { opacity: .3; cursor: default; color: inherit; }
+.carrossel__nav span { font-variant-numeric: tabular-nums; }
+
 /* ---------- METODOLOGIA (interativa) ----------
    Etapas numeradas que abrem ao clique. É o momento "interativo"
    da home, colocado onde ele informa em vez de só enfeitar. */
