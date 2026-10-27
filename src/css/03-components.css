@@ -550,6 +550,24 @@
 .carrossel__nav button[disabled] { opacity: .3; cursor: default; color: inherit; }
 .carrossel__nav span[data-carrossel-count] { font-variant-numeric: tabular-nums; }
 
+/* Lista: índice tipográfico com link (episódios, prêmios, imprensa). */
+.lista { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }
+.lista li { border-bottom: 1px solid var(--line); margin: 0; }
+.lista a {
+  display: grid; grid-template-columns: minmax(0, 14em) minmax(0, 1fr) auto; gap: var(--gutter);
+  align-items: baseline; padding: 14px 0;
+  color: inherit; text-decoration: none; transition: color .2s ease;
+}
+.lista__tema { color: var(--ink-soft, rgba(0,0,0,.55)); }
+.lista__seta { opacity: .4; transition: opacity .2s ease, transform .2s ease; }
+.lista a:hover { color: var(--brand-azul); }
+.lista a:hover .lista__seta { opacity: 1; transform: translate(2px, -2px); }
+@media (max-width: 699px) {
+  .lista a { grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; }
+  .lista__tema { grid-column: 1; grid-row: 2; }
+  .lista__seta { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+}
+
 /* ---------- METODOLOGIA (interativa) ----------
    Etapas numeradas que abrem ao clique. É o momento "interativo"
    da home, colocado onde ele informa em vez de só enfeitar. */

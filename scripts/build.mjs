@@ -125,6 +125,16 @@ async function loadProject(dir, slugFromDir) {
   const placeholders = [];
   let md = body;
 
+  /* ::: lista … ::: — uma lista em markdown vira índice tipográfico
+     (nome, assunto, link), sem imagem. Bom para episódios, prêmios, imprensa. */
+  md = md.replace(/^:::[ \t]*lista[ \t]*\n([\s\S]*?)\n:::[ \t]*$/gm, (_, dentro) => {
+    const itens = dentro.split('\n').map((l) => l.match(/^\s*[-*]\s+\[(.+?)(?:\s+—\s+(.+?))?\]\((\S+?)\)\s*$/)).filter(Boolean);
+    const esc = (t) => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+    placeholders.push({ kind: 'html', html: `<ul class="lista">${itens.map((m) =>
+      `<li><a href="${m[3]}" target="_blank" rel="noopener"><span class="lista__nome">${esc(m[1])}</span>${m[2] ? `<span class="lista__tema">${esc(m[2])}</span>` : ''}<span class="lista__seta" aria-hidden="true">↗</span></a></li>`).join('')}</ul>` });
+    return `\n\n%%MEDIA${placeholders.length - 1}%%\n\n`;
+  });
+
   /* ::: carrossel … ::: — as imagens do bloco viram um carrossel de verdade,
      na ordem em que aparecem (um post de carrossel do Instagram, por exemplo). */
   md = md.replace(/^:::[ \t]*carrossel[ \t]*\n([\s\S]*?)\n:::[ \t]*$/gm, (_, dentro) => {
@@ -150,6 +160,10 @@ async function loadProject(dir, slugFromDir) {
 
   for (let i = 0; i < placeholders.length; i++) {
     const ph = placeholders[i];
+    if (ph.kind === 'html') {
+      html = html.replace(new RegExp(`<p>%%MEDIA${i}%%</p>`), ph.html).replace(`%%MEDIA${i}%%`, ph.html);
+      continue;
+    }
     const resolved = [];
     for (const it of ph.items) {
       resolved.push({ alt: it.alt, img: await resolve(it.src) });
