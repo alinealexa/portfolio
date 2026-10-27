@@ -54,7 +54,7 @@ marca em qualquer plataforma.
 
 ![Marcos Paulo e Rafa Sinisgalli · o primeiro episódio](youtube:51SJtY_EJPg) ![Thiago Vinhal · Como o esporte te deixa melhor na vida](youtube:9SEBVDCMkyc)
 
-@spotify show/70P8jUzyzXmemxaAUW4UnD/video
+@spotify episode/295Ytmx0jAxjiXh7MJr0jY/video
 
 ::: lista
 - [Alana Sicoli — Vida real: rotina e maternidade](https://www.youtube.com/watch?v=UzZ931dxXrg)
