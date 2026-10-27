@@ -14,6 +14,7 @@ capa: "01.jpg"
 creditos:
   Direção criativa: "Aline Alexa"
   Vídeo: "Vitor Keese"
+  Produção de set: "Martin Flowers Productions"
   Apresentação: "Gabriel Nogueira (Mundo Tri)"
 link: "https://www.youtube.com/playlist?list=PLS-r4k_7KIcDci1UHg88o-GrB0aymbjah"
 pai: polar-brasil
