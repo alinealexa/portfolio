@@ -57,7 +57,6 @@ marca em qualquer plataforma.
 @spotify show/70P8jUzyzXmemxaAUW4UnD/video
 
 ::: lista
-- [Bruno Fratus — Quem existe por trás do atleta](https://www.youtube.com/watch?v=q7u2wUazNfU)
 - [Alana Sicoli — Vida real: rotina e maternidade](https://www.youtube.com/watch?v=UzZ931dxXrg)
 - [Nicholas Santos — Jogos Olímpicos aos 46 anos](https://www.youtube.com/watch?v=csdNLn_S55w)
 - [Thiago Vinhal — Como o esporte te deixa melhor na vida](https://www.youtube.com/watch?v=9SEBVDCMkyc)
