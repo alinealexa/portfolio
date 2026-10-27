@@ -1,38 +1,59 @@
 ---
 titulo: "Loop"
 cliente: "Polar Brasil"
-ano: 2026
-resumo: "Campanha local centrada em simplicidade, movimento e bem-estar contemporâneo."
+ano: 2025
+resumo: "Lançamento do Polar Loop no Brasil, com rostos brasileiros e o produto mostrado ao longo de um dia real."
 servicos:
-  - "Direção de arte"
   - "Direção criativa"
+  - "Produção audiovisual"
+  - "Direção de arte"
   - "Social media"
 capa: "01.jpg"
+abertura: "abertura.jpg"
 creditos:
   Direção criativa: "Aline Alexa"
+  Com: "Alana Sicoli, Vinicius Saraiva e André Sanches"
 link: "https://www.behance.net/gallery/248410717/Polar-Loop"
 pai: polar-brasil
-so_capa: true
 ordem: 1
 ---
 
 ## Contexto
 
-Lideramos todo o processo criativo, o conceito e a direção de produção da
-campanha de lançamento do Polar Loop. Construímos uma campanha centrada em
-simplicidade, movimento e bem-estar contemporâneo, posicionando o produto como
-um wearable que desaparece na rotina.
+O Polar Loop é a pulseira inteligente da Polar: sem tela, sem assinatura,
+feita para ficar no pulso 24 horas. Monitora sono, recuperação, passos e
+treinos, e entrega tudo no app Polar Flow. A campanha global chegou pronta. O
+desafio no Brasil era fazer um produto que quase não aparece ser entendido e
+desejado por aqui.
+
+![](02.jpg) ![](03.jpg)
 
 ## Solução
 
-Traduzimos o conceito numa linguagem visual limpa e atual, com direção
-fotográfica focada em leveza, conforto e integração natural ao dia a dia.
-Conduzimos casting, logística de produção e todas as execuções da campanha
-para manter consistência em cada ponto de contato.
+Abrasileiramos a campanha. Lideramos toda a produção criativa e audiovisual no
+Brasil, com rostos brasileiros e rotinas diferentes, para que cada
+funcionalidade aparecesse num momento real do dia, e não numa ficha técnica.
+Alana Sicoli explica em primeira pessoa o que é o Loop e para quem ele é.
+Vinicius Saraiva mostra um dia inteiro em menos de um minuto.
 
-Em paralelo, gerimos o rollout completo de social media e as adaptações de
-conteúdo, criando narrativas em torno de sono, recuperação, atividade e
-bem-estar sem distração.
+![O que é](video-o-que-e.mp4) ![Pra quem é](video-pra-quem.mp4) ![Um dia com o Loop](video-um-dia.mp4)
+
+> Do primeiro minuto da manhã ao último da noite, sem uma tela pedindo atenção.
+
+Decupamos o produto ao longo do dia. Ao acordar, o app mostra os estágios do
+sono, a pontuação da noite e o quanto o corpo se recuperou. Durante o dia, a
+pulseira conta passos e acompanha a meta de atividade. No treino, reconhece o
+exercício sozinha e calcula as calorias. E no escritório, some por baixo do
+punho da camisa.
+
+![](04.jpg) ![](05.jpg)
+
+![](06.jpg) ![](07.jpg)
+
+Com o André Sanches, a mesma pulseira entra na rotina de um atleta: o sono
+conferido no celular, o treino de força e o banho de gelo para recuperar.
+
+![](08.jpg) ![](09.jpg) ![](10.jpg)
 
 ## Resultado
 
