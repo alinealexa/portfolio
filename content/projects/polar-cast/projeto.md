@@ -48,11 +48,9 @@ uma pessoa, porque o Polar Cast é, antes de tudo, sobre pessoas. O vermelho
 e o preto vêm direto da Polar, para o podcast ser reconhecido como parte da
 marca em qualquer plataforma.
 
-![](marca-logo.svg)
+![](marca-logo.svg) ![](marca-avatar-preto.svg) ![](marca-avatar-vermelho.svg)
 
-![](marca-avatar-preto.svg) ![](marca-avatar-vermelho.svg)
-
-![André Sanches · Novos esportes, Hyrox e o prazer em se desafiar](youtube:XPSOqL3D95w)
+![André Sanches · Novos esportes, Hyrox e o prazer em se desafiar](capa-andre.jpg "youtube:XPSOqL3D95w")
 
 ![Marcos Paulo e Rafa Sinisgalli · o primeiro episódio](youtube:51SJtY_EJPg) ![Thiago Vinhal · Como o esporte te deixa melhor na vida](youtube:9SEBVDCMkyc)
 

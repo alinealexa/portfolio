@@ -492,6 +492,11 @@
 @media (min-width: 700px) {
   .pair { grid-template-columns: repeat(var(--n, 2), minmax(0, 1fr)); }
 }
+/* Logos em vetor ficam lado a lado também no celular: empilhados, cada
+   um ocuparia a tela inteira. */
+@media (max-width: 699px) {
+  .pair:has(> .marca--vetor) { grid-template-columns: repeat(var(--n, 2), minmax(0, 1fr)); gap: 12px; }
+}
 /* Fileira de três ou mais: vira catálogo, com respiro menor. */
 @media (min-width: 700px) {
   .pair:not([style*="--n:2"]) { gap: calc(var(--gutter) * 0.7); }
