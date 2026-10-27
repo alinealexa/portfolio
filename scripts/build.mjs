@@ -157,7 +157,9 @@ async function loadProject(dir, slugFromDir) {
       /* Fileira de vídeos: a capa é uma foto parada (o .jpg de mesmo nome).
          Clique abre o vídeo em tela cheia, com som. A legenda pode levar link. */
       out = `<div class="pair pair--video" style="--n:${resolved.length}">${resolved.map((r, k) => {
-        if (!r.img?.video) return '';
+        if (!r.img?.video) return r.img && !r.img.vetor
+          ? `<figure class="video"><div class="media media--4-5">${imgTag(r.img, { alt: r.alt, sizes: '(min-width:1000px) 32vw, 50vw' })}</div>${r.alt ? `<figcaption class="meta">${r.alt}</figcaption>` : ''}</figure>`
+          : '';
         const poster = r.img.poster ? ` poster="${r.img.poster.src}"` : '';
         const href = ph.items[k].href;
         const cap = r.alt ? `<figcaption class="meta">${href ? `<a href="${href}" target="_blank" rel="noopener">${r.alt} <span aria-hidden="true">↗</span></a>` : r.alt}</figcaption>` : '';
