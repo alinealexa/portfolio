@@ -11,7 +11,7 @@ servicos:
 creditos:
   Direção criativa: "Aline Alexa"
 capa: "01.jpg"
-abertura: "05.jpg"
+abertura: "abertura.jpg"
 ordem: 5
 ---
 
@@ -47,8 +47,6 @@ tipografia equilibrando a saturação da paleta.
 Além da identidade, fizemos a execução: captação de fotos e vídeos, edição,
 direção de arte dos posts e a estratégia de conteúdo para o Instagram,
 alternando peça, mensagem e composição em mosaico para dar ritmo ao perfil.
-
-![](05.jpg)
 
 ![](06.jpg) ![](07.jpg)
 
