@@ -12,6 +12,7 @@ capa: "01.jpg"
 abertura: "abertura.jpg"
 creditos:
   Direção criativa: "Aline Alexa"
+  Vídeo: "Vitor Keese"
   Com: "Alana Sicoli, Vinicius Saraiva e André Sanches"
 link: "https://www.behance.net/gallery/248410717/Polar-Loop"
 pai: polar-brasil

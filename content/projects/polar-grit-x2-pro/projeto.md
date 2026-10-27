@@ -12,6 +12,7 @@ capa: "01.jpg"
 abertura: "abertura.jpg"
 creditos:
   Direção criativa: "Aline Alexa"
+  Vídeo: "Vitor Keese"
 pai: polar-brasil
 ordem: 4
 ---

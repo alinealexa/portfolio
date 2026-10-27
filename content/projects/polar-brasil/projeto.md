@@ -10,6 +10,7 @@ servicos:
   - "Produção de conteúdo"
 creditos:
   Direção criativa: "Aline Alexa"
+  Vídeo: "Vitor Keese"
   Vínculo: "Atuação interna na marca, de 2023 a 2026"
 capa: "01.jpg"
 abertura: "abertura.jpg"

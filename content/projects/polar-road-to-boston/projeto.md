@@ -9,6 +9,7 @@ servicos:
   - "Produção audiovisual"
 creditos:
   Direção criativa: "Aline Alexa"
+  Vídeo: "Vitor Keese"
   Atleta: "Alana Sicoli"
 capa: "01.jpg"
 abertura: "02.jpg"
