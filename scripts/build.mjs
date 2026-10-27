@@ -150,6 +150,23 @@ async function loadProject(dir, slugFromDir) {
     return `\n\n%%MEDIA${placeholders.length - 1}%%\n\n`;
   });
 
+  /* ::: grade … ::: — pranchas em duas colunas, cada uma na proporção
+     original, sem corte. Para peças horizontais (pranchas de marca). */
+  md = md.replace(/^:::[ \t]*grade[ \t]*\n([\s\S]*?)\n:::[ \t]*$/gm, (_, dentro) => {
+    const itens = [...dentro.matchAll(/!\[([^\]]*)\]\(([^)]+)\)/g)].map((m) => ({ alt: m[1], ...splitRef(m[2]) }));
+    placeholders.push({ kind: 'grade', items: itens });
+    return `\n\n%%MEDIA${placeholders.length - 1}%%\n\n`;
+  });
+
+  /* ::: fileira 3:4 … ::: — cada linha do bloco vira uma fileira em 3:4
+     (em vez do 1:1 padrão). Para pôsteres e stories: o corte não come texto. */
+  md = md.replace(/^:::[ \t]*fileira[ \t]+3:4[ \t]*\n([\s\S]*?)\n:::[ \t]*$/gm, (_, dentro) =>
+    dentro.split('\n').filter((l) => l.trim()).map((linha) => {
+      const itens = [...linha.matchAll(/!\[([^\]]*)\]\(([^)]+)\)/g)].map((m) => ({ alt: m[1], ...splitRef(m[2]) }));
+      placeholders.push({ kind: 'pair', items: itens, ratio: '3-4' });
+      return `\n\n%%MEDIA${placeholders.length - 1}%%\n\n`;
+    }).join(''));
+
   // duas ou mais imagens na MESMA linha viram uma fileira
   md = md.replace(/!\[[^\]]*\]\([^)]+\)(?:[ \t]+!\[[^\]]*\]\([^)]+\))+/g, (bloco) => {
     const itens = [...bloco.matchAll(/!\[([^\]]*)\]\(([^)]+)\)/g)].map((m) => ({ alt: m[1], ...splitRef(m[2]) }));
@@ -220,11 +237,14 @@ async function loadProject(dir, slugFromDir) {
         const cap = r.alt ? `<figcaption class="meta">${href ? `<a href="${href}" target="_blank" rel="noopener">${r.alt} <span aria-hidden="true">↗</span></a>` : r.alt}</figcaption>` : '';
         return `<figure class="video"><div class="media media--4-5"><video data-video src="${r.img.video}"${poster} playsinline preload="none" aria-label="${r.alt}"></video><span class="video__play" aria-hidden="true"></span></div>${cap}</figure>`;
       }).join('')}</div>`;
+    } else if (ph.kind === 'grade') {
+      out = `<div class="grade">${resolved.filter((r) => r.img).map((r) =>
+        `<figure><div class="media" style="aspect-ratio:${(r.img.ratio || 1).toFixed(4)}">${imgTag(r.img, { alt: r.alt, sizes: '(min-width:1000px) 32vw, 50vw' })}</div>${r.alt ? `<figcaption class="meta">${r.alt}</figcaption>` : ''}</figure>`).join('')}</div>`;
     } else if (ph.kind === 'pair') {
       out = `<div class="pair" style="--n:${resolved.length}">${resolved.map((r, k) => r.img?.vetor ? vetor(r) : r.img
         ? (ehMarca(ph.items[k])
           ? `<figure class="marca${(r.img.ratio || 1) >= 1.6 ? ' marca--larga' : ''}"><div class="marca__box">${imgTag(r.img, { alt: r.alt, sizes: '(min-width:1000px) 32vw, 50vw' })}</div></figure>`
-          : `<figure><div class="media media--${resolved.length > 2 ? '1-1' : '3-4'}">${imgTag(r.img, { alt: r.alt, sizes: '(min-width:1000px) 32vw, 50vw' })}</div>${r.alt ? `<figcaption class="meta">${r.alt}</figcaption>` : ''}</figure>`)
+          : `<figure><div class="media media--${ph.ratio || (resolved.length > 2 ? '1-1' : '3-4')}">${imgTag(r.img, { alt: r.alt, sizes: '(min-width:1000px) 32vw, 50vw' })}</div>${r.alt ? `<figcaption class="meta">${r.alt}</figcaption>` : ''}</figure>`)
         : '').join('')}</div>`;
     } else if (/^youtube:/.test(ph.items[0]?.href || '') && resolved[0]?.img) {
       /* `![legenda](capa.jpg "youtube:ID")` — filme largo em 16:9. A capa é

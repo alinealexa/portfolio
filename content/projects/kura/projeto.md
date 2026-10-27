@@ -24,8 +24,6 @@ Havia um mercado em expansão sem resposta para isso: gente que corre e pedala
 ao ar livre, que leva alimentação a sério, e que não encontrava um ponto de
 encontro depois do esforço.
 
-![](02.jpg)
-
 ## Desafio
 
 Construir uma marca para uma categoria que não existia na cidade. O Kura não é
@@ -34,9 +32,14 @@ academia, não é clínica, não é cafeteria. É os três, e nenhum deles.
 O risco era duplo. Pendendo para o lado clínico, herdaria justamente a frieza
 que o projeto queria combater. Pendendo para o lado wellness, viraria mais uma
 marca de bem-estar genérica, dessas que prometem calma e não entregam
-competência. Precisava ser acolhedora sem ser mole, e técnica sem ser gelada.
+competência.
 
-![](03.jpg) ![](04.jpg)
+> Precisava ser acolhedora sem ser mole, e técnica sem ser gelada.
+
+::: grade
+![](prancha-01.png) ![](prancha-02.png)
+![](prancha-03.png) ![](prancha-04.png)
+:::
 
 ## Solução
 
@@ -55,7 +58,9 @@ quente, cores de sombra e de terra, não de consultório. A tipografia é leve,
 em caixa alta, com espaçamento aberto e alinhada à esquerda: dá respiro sem
 perder firmeza.
 
-![](05.jpg) ![](06.jpg)
+![](sistema-01.png) ![](sistema-02.png) ![](sistema-03.png)
+
+![](sistema-04.png) ![](sistema-05.png) ![](sistema-06.png)
 
 ## Aplicação
 
@@ -65,11 +70,11 @@ oficial e a comunicação dos parceiros. Foi o teste real: a mesma marca
 funcionando sobre fundo escuro e claro, sobre foto e sobre cor chapada, em peça
 impressa e em stories.
 
-![](07.jpg)
-
-![](08.jpg) ![](09.jpg)
-
-![](10.jpg)
+::: fileira 3:4
+![](evento-01.png) ![](evento-02.png) ![](evento-03.png)
+![](evento-04.png) ![](evento-05.png) ![](evento-06.png)
+![](evento-07.png) ![](evento-08.png) ![](evento-09.png)
+:::
 
 ## Resultado
 
@@ -77,4 +82,4 @@ O Kura entrou no mercado com uma marca que já parecia estabelecida, e com um
 território verbal próprio. *Not more. Better.* deixou de ser assinatura e virou
 o jeito de a comunidade falar do clube.
 
-![](11.jpg)
+![](camiseta.png)

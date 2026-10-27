@@ -56,6 +56,18 @@ Texto.
 ![](03.jpg) ![](04.jpg)   ← duas na mesma linha viram um par lado a lado
 ```
 
+Blocos de grade:
+
+```markdown
+::: grade                 ← duas colunas, proporção original, sem corte (pranchas)
+![](a.png) ![](b.png)
+:::
+
+::: fileira 3:4           ← cada linha vira fileira em 3:4, não 1:1 (pôsteres, stories)
+![](a.png) ![](b.png) ![](c.png)
+:::
+```
+
 **3. Rode o build.**
 
 ```bash

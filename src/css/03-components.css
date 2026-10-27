@@ -918,3 +918,8 @@
   .display-m,
   .project-body blockquote { line-height: 1; }
 }
+
+/* Grade de pranchas (::: grade): duas colunas, cada peça na proporção
+   original, sem corte. Também no celular, com respiro menor. */
+.grade { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: calc(var(--gutter) * 0.7); }
+@media (max-width: 699px) { .grade { gap: 8px; } }
