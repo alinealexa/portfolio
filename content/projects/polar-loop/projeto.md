@@ -33,10 +33,11 @@ desejado por aqui.
 Abrasileiramos a campanha. Lideramos toda a produção criativa e audiovisual no
 Brasil, com rostos brasileiros e rotinas diferentes, para que cada
 funcionalidade aparecesse num momento real do dia, e não numa ficha técnica.
-Alana Sicoli explica em primeira pessoa o que é o Loop e para quem ele é.
-Vinicius Saraiva mostra um dia inteiro em menos de um minuto.
+Foram três filmes, um dia inteiro em cada: Alana Sicoli entre o treino e a
+rotina, Vinicius Saraiva da cozinha ao escritório e André Sanches do treino de
+força ao banho de gelo.
 
-![O que é](video-o-que-e.mp4) ![Pra quem é](video-pra-quem.mp4) ![Um dia com o Loop](video-um-dia.mp4)
+![Alana Sicoli](video-alana.mp4) ![André Sanches](video-andre.mp4) ![Vinicius Saraiva](video-um-dia.mp4)
 
 > Do primeiro minuto da manhã ao último da noite, sem uma tela pedindo atenção.
 
@@ -58,4 +59,6 @@ conferido no celular, o treino de força e o banho de gelo para recuperar.
 ## Resultado
 
 A campanha expandiu a presença da Polar para além da performance esportiva,
-conectando a marca a um público mais amplo, movido por estilo de vida.
+conectando a marca a um público mais amplo, movido por estilo de vida. A
+execução foi tão bem recebida que a Polar pediu as versões em inglês, e os
+filmes feitos no Brasil rodaram globalmente.
