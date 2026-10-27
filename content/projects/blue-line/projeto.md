@@ -25,7 +25,7 @@ studio o aa.sports, um ateliê de quadros que transformam a prova de um atleta
 em peça de parede: o traçado do percurso, os dados da corrida e, se ele
 quiser, a própria medalha e o número de peito.
 
-![](foto-prateleira.jpg) ![](foto-parede.jpg)
+![](foto-prateleira.jpg) ![](foto-raissa.jpg)
 
 ![](quadro-tokyo.jpg) ![](quadro-kona.jpg) ![](quadro-boston.jpg)
 

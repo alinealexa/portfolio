@@ -191,6 +191,7 @@
     var next = c.querySelector('[data-carrossel-next]');
     var count = c.querySelector('[data-carrossel-count]');
     var total = String(slides.length).padStart(2, '0');
+    var dots = c.querySelectorAll('.carrossel__dots span');
     var atual = function () {
       var x = track.scrollLeft, best = 0, d = Infinity;
       for (var i = 0; i < slides.length; i++) {
@@ -203,6 +204,7 @@
     var update = function () {
       var i = fim() ? slides.length - 1 : atual();
       count.textContent = String(i + 1).padStart(2, '0') + ' / ' + total;
+      dots.forEach(function (d, k) { d.classList.toggle('is-on', k === i); });
       prev.disabled = track.scrollLeft <= 4;
       next.disabled = fim();
     };

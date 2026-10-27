@@ -167,7 +167,7 @@ async function loadProject(dir, slugFromDir) {
         <div class="carrossel__track" data-carrossel-track tabindex="0" aria-label="Carrossel, ${n} imagens">${resolved.map((r) => r.img && !r.img.vetor
           ? `<figure class="carrossel__slide"><div class="media media--4-5">${imgTag(r.img, { alt: r.alt, sizes: '(min-width:1000px) 28vw, 80vw' })}</div></figure>`
           : '').join('')}</div>
-        <div class="carrossel__nav meta"><button type="button" data-carrossel-prev aria-label="Anterior">←</button><span data-carrossel-count>01 / ${String(n).padStart(2, '0')}</span><button type="button" data-carrossel-next aria-label="Próxima">→</button></div>
+        <div class="carrossel__nav meta"><div class="carrossel__dots" aria-hidden="true">${'<span></span>'.repeat(n)}</div><button type="button" data-carrossel-prev aria-label="Anterior">←</button><span data-carrossel-count>01 / ${String(n).padStart(2, '0')}</span><button type="button" data-carrossel-next aria-label="Próxima">→</button></div>
       </div>`;
     } else if (resolved.some((r) => r.img?.video)) {
       /* Fileira de vídeos: a capa é uma foto parada (o .jpg de mesmo nome).
