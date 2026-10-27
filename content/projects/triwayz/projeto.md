@@ -22,7 +22,7 @@ audiência: sair do perfil pessoal e virar canal, com YouTube, Strava e podcast
 no Spotify. Cada uma dessas plataformas tem um formato diferente, e a marca
 precisava se manter a mesma em todas.
 
-![](06.jpg)
+![](06.jpg "pequena")
 
 ## Desafio
 

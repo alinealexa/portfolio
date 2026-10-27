@@ -923,3 +923,8 @@
    original, sem corte. Também no celular, com respiro menor. */
 .grade { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: calc(var(--gutter) * 0.7); }
 @media (max-width: 699px) { .grade { gap: 8px; } }
+
+/* `![](arte.jpg "pequena")` — figura sozinha em tamanho reduzido, alinhada
+   ao texto. Para peças que não pedem a coluna inteira. */
+.project-body .figura--pequena { width: min(36%, 22rem); }
+@media (max-width: 699px) { .project-body .figura--pequena { width: 60%; } }

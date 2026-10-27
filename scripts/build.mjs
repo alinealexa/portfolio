@@ -257,7 +257,7 @@ async function loadProject(dir, slugFromDir) {
       out = r.img?.vetor ? vetor(r) : r.img
         ? (ehMarca(ph.items[0])
           ? `<figure class="marca${(r.img.ratio || 1) >= 1.6 ? ' marca--larga' : ''}"><div class="marca__box">${imgTag(r.img, { alt: r.alt, sizes: '(min-width:1000px) 66vw, 100vw' })}</div></figure>`
-          : `<figure><div class="media">${imgTag(r.img, { alt: r.alt, sizes: '(min-width:1000px) 66vw, 100vw' })}</div>${r.alt ? `<figcaption class="meta">${r.alt}</figcaption>` : ''}</figure>`)
+          : `<figure${ph.items[0].href === 'pequena' ? ' class="figura--pequena"' : ''}><div class="media">${imgTag(r.img, { alt: r.alt, sizes: ph.items[0].href === 'pequena' ? '(min-width:1000px) 24vw, 60vw' : '(min-width:1000px) 66vw, 100vw' })}</div>${r.alt ? `<figcaption class="meta">${r.alt}</figcaption>` : ''}</figure>`)
         : '';
     }
 

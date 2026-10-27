@@ -66,6 +66,8 @@ Blocos de grade:
 ::: fileira 3:4           ← cada linha vira fileira em 3:4, não 1:1 (pôsteres, stories)
 ![](a.png) ![](b.png) ![](c.png)
 :::
+
+![](arte.jpg "pequena")  ← figura sozinha em tamanho reduzido
 ```
 
 **3. Rode o build.**
