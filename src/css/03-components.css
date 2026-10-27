@@ -550,6 +550,10 @@
 .carrossel__nav button[disabled] { opacity: .3; cursor: default; color: inherit; }
 .carrossel__nav span[data-carrossel-count] { font-variant-numeric: tabular-nums; }
 
+/* Player do Spotify embutido. */
+.spotify { margin: 0; }
+.spotify iframe { display: block; width: 100%; border: 0; border-radius: var(--r-md); background: var(--line-soft); }
+
 /* Lista: índice tipográfico com link (episódios, prêmios, imprensa). */
 .lista { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }
 .lista li { border-bottom: 1px solid var(--line); margin: 0; }

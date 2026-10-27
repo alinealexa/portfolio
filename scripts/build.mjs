@@ -125,6 +125,13 @@ async function loadProject(dir, slugFromDir) {
   const placeholders = [];
   let md = body;
 
+  /* `@spotify show/ID` (ou episode/ID) numa linha sozinha vira o player do
+     Spotify, na largura da coluna. */
+  md = md.replace(/^@spotify[ \t]+((?:show|episode)\/[A-Za-z0-9]+)(\/video)?[ \t]*$/gm, (_, ref, video) => {
+    placeholders.push({ kind: 'html', html: `<figure class="spotify"><iframe src="https://open.spotify.com/embed/${ref}${video || ''}?utm_source=generator&amp;theme=0" width="100%" height="352" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen loading="lazy" title="Spotify"></iframe></figure>` });
+    return `\n\n%%MEDIA${placeholders.length - 1}%%\n\n`;
+  });
+
   /* ::: lista … ::: — uma lista em markdown vira índice tipográfico
      (nome, assunto, link), sem imagem. Bom para episódios, prêmios, imprensa. */
   md = md.replace(/^:::[ \t]*lista[ \t]*\n([\s\S]*?)\n:::[ \t]*$/gm, (_, dentro) => {
@@ -166,7 +173,9 @@ async function loadProject(dir, slugFromDir) {
     }
     const resolved = [];
     for (const it of ph.items) {
-      resolved.push({ alt: it.alt, img: await resolve(it.src) });
+      /* `![legenda](youtube:ID)` sem foto nossa: a capa é a miniatura do próprio YouTube. */
+      const yt = String(it.src).match(/^youtube:([\w-]+)$/);
+      resolved.push({ alt: it.alt, img: yt ? { yt: yt[1] } : await resolve(it.src) });
     }
 
     /* Arquivo chamado `marca-*` é peça de marca em fundo transparente:
@@ -175,7 +184,15 @@ async function loadProject(dir, slugFromDir) {
     const vetor = (r) => `<figure class="marca marca--vetor"><div class="marca__box">${r.img.vetor}</div></figure>`;
 
     let out;
-    if (ph.kind === 'carousel') {
+    const ytFig = (r) => {
+      const id = r.img.yt, alt = String(r.alt || '').replace(/"/g, '&quot;');
+      return `<figure class="video video--yt"><div class="media media--16-9" data-yt="${id}" role="button" tabindex="0" aria-label="Assistir${alt ? ': ' + alt : ''}"><img src="https://i.ytimg.com/vi/${id}/maxresdefault.jpg" alt="" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${id}/hqdefault.jpg'"><span class="video__play" aria-hidden="true"></span></div>${r.alt ? `<figcaption class="meta">${r.alt}</figcaption>` : ''}</figure>`;
+    };
+    if (resolved.length && resolved.every((r) => r.img?.yt)) {
+      out = resolved.length > 1
+        ? `<div class="pair" style="--n:${resolved.length}">${resolved.map(ytFig).join('')}</div>`
+        : ytFig(resolved[0]);
+    } else if (ph.kind === 'carousel') {
       const n = resolved.filter((r) => r.img && !r.img.vetor).length;
       out = `<div class="carrossel" data-carrossel>
         <div class="carrossel__track" data-carrossel-track tabindex="0" aria-label="Carrossel, ${n} imagens">${resolved.map((r) => r.img && !r.img.vetor

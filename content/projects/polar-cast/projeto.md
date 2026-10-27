@@ -52,6 +52,12 @@ marca em qualquer plataforma.
 
 ![](marca-avatar-preto.svg) ![](marca-avatar-vermelho.svg)
 
+![André Sanches · Novos esportes, Hyrox e o prazer em se desafiar](youtube:XPSOqL3D95w)
+
+![Marcos Paulo e Rafa Sinisgalli · o primeiro episódio](youtube:51SJtY_EJPg) ![Thiago Vinhal · Como o esporte te deixa melhor na vida](youtube:9SEBVDCMkyc)
+
+@spotify show/70P8jUzyzXmemxaAUW4UnD/video
+
 ::: lista
 - [Bruno Fratus — Quem existe por trás do atleta](https://www.youtube.com/watch?v=q7u2wUazNfU)
 - [Alana Sicoli — Vida real: rotina e maternidade](https://www.youtube.com/watch?v=UzZ931dxXrg)
