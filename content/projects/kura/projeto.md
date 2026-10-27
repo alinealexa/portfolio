@@ -2,7 +2,7 @@
 titulo: "Kura Wellness Club"
 cliente: "Kura"
 ano: 2026
-resumo: "Marca para o primeiro clube de bem-estar integral de Zacatecas, onde o ritual atlético se completa."
+resumo: "Marca para um clube de bem-estar integral, onde o ritual atlético se completa."
 servicos:
   - "Branding"
   - "Identidade visual"
@@ -16,7 +16,7 @@ ordem: 2
 
 ## Contexto
 
-O Kura nasce em Zacatecas, no México, a partir de uma observação simples: o
+O Kura nasce de uma observação simples: o
 ritual do atleta não termina quando o treino termina. Rotina apertada, tempo
 curto, nenhum lugar seguro para guardar as coisas, e centros de fisioterapia
 que a própria comunidade descrevia como "clínicas frias".
@@ -27,7 +27,7 @@ encontro depois do esforço.
 
 ## Desafio
 
-Construir uma marca para uma categoria que não existia na cidade. O Kura não é
+Construir uma marca para uma categoria que ainda não existia. O Kura não é
 academia, não é clínica, não é cafeteria. É os três, e nenhum deles.
 
 O risco era duplo. Pendendo para o lado clínico, herdaria justamente a frieza
