@@ -10,7 +10,8 @@ servicos:
 creditos:
   Direção criativa: "Aline Alexa"
 capa: "01.jpg"
-ordem: 3.5
+destaque: true
+ordem: 2
 ---
 
 ## Contexto

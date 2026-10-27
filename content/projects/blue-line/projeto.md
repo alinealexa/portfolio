@@ -14,8 +14,7 @@ creditos:
 link: "https://yourblueline.com"
 capa: "capa.jpg"
 abertura: "abertura.jpg"
-destaque: true
-ordem: 2
+ordem: 3.5
 ---
 
 ## Contexto
