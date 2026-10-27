@@ -31,8 +31,6 @@ reconheceu que as melhores produções da Polar saíam do Brasil, e confiou a n�
 a campanha de lançamento global do Street X, criada e produzida inteira em São
 Paulo.
 
-![](02.jpg) ![](03.jpg)
-
 ## Solução
 
 Assinamos a campanha de ponta a ponta: roteiro e narrativa, casting dos
