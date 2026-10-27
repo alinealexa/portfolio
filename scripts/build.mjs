@@ -186,7 +186,7 @@ async function loadProject(dir, slugFromDir) {
     let out;
     const ytFig = (r) => {
       const id = r.img.yt, alt = String(r.alt || '').replace(/"/g, '&quot;');
-      return `<figure class="video video--yt"><div class="media media--16-9" data-yt="${id}" role="button" tabindex="0" aria-label="Assistir${alt ? ': ' + alt : ''}"><img src="https://i.ytimg.com/vi/${id}/maxresdefault.jpg" alt="" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${id}/hqdefault.jpg'"><span class="video__play" aria-hidden="true"></span></div>${r.alt ? `<figcaption class="meta">${r.alt}</figcaption>` : ''}</figure>`;
+      return `<figure class="video video--yt"><div class="media media--16-9" data-yt="${id}" role="button" tabindex="0" aria-label="Assistir${alt ? ': ' + alt : ''}"><img src="https://i.ytimg.com/vi/${id}/maxresdefault.jpg" alt="" loading="lazy" decoding="async" onload="if(this.naturalWidth<200&&!this.dataset.f){this.dataset.f=1;this.src='https://i.ytimg.com/vi/${id}/sddefault.jpg'}" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${id}/hqdefault.jpg'"><span class="video__play" aria-hidden="true"></span></div>${r.alt ? `<figcaption class="meta">${r.alt}</figcaption>` : ''}</figure>`;
     };
     if (resolved.length && resolved.every((r) => r.img?.yt)) {
       out = resolved.length > 1
