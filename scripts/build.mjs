@@ -283,6 +283,27 @@ async function copyStatic() {
   await fs.cp(from, DIST, { recursive: true });
 }
 
+/* CSS e JS ganham ?v=<hash do conteúdo> em todo HTML. Sem isso o navegador
+   de quem já visitou o site segura a versão antiga e a página nova aparece
+   com o estilo velho. */
+async function carimbarAssets() {
+  const hash = async (f) => crypto.createHash('sha1').update(await fs.readFile(path.join(DIST, 'assets', f))).digest('hex').slice(0, 8);
+  const v = { 'styles.css': await hash('styles.css'), 'main.js': await hash('main.js') };
+  const htmls = [];
+  const walk = async (d) => {
+    for (const e of await readDirSafe(d)) {
+      const p = path.join(d, e.name);
+      if (e.isDirectory()) await walk(p); else if (e.name.endsWith('.html')) htmls.push(p);
+    }
+  };
+  await walk(DIST);
+  for (const f of htmls) {
+    let html = await fs.readFile(f, 'utf8');
+    html = html.replace(/assets\/(styles\.css|main\.js)"/g, (_, n) => `assets/${n}?v=${v[n]}"`);
+    await fs.writeFile(f, html);
+  }
+}
+
 /* ---------- main ---------- */
 
 async function build() {
@@ -341,6 +362,7 @@ ${urls.map((u) => `  <url><loc>https://${base}/${u}</loc><lastmod>${hoje}</lastm
   }
 
   await copyStatic();
+  await carimbarAssets();
 
   const comPagina = projects.filter((p) => !p.soCapa).length;
   console.log(`\n  ✓ ${projects.length} projeto(s), ${comPagina} com página, ${comPagina + 3} página(s) → dist/\n`);
