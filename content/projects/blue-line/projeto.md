@@ -1,5 +1,5 @@
 ---
-titulo: "Blue Line"
+titulo: "_blueline"
 cliente: "Marca própria"
 ano: "2024–2026"
 resumo: "Marca própria de quadros que transformam a prova de um atleta em peça de parede."
@@ -14,7 +14,8 @@ creditos:
 link: "https://yourblueline.com"
 capa: "capa.jpg"
 abertura: "abertura.jpg"
-ordem: 3.5
+destaque: true
+ordem: 2
 ---
 
 ## Contexto
