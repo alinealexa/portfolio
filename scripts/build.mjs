@@ -187,6 +187,12 @@ async function loadProject(dir, slugFromDir) {
           ? `<figure class="marca${(r.img.ratio || 1) >= 1.6 ? ' marca--larga' : ''}"><div class="marca__box">${imgTag(r.img, { alt: r.alt, sizes: '(min-width:1000px) 32vw, 50vw' })}</div></figure>`
           : `<figure><div class="media media--${resolved.length > 2 ? '1-1' : '3-4'}">${imgTag(r.img, { alt: r.alt, sizes: '(min-width:1000px) 32vw, 50vw' })}</div>${r.alt ? `<figcaption class="meta">${r.alt}</figcaption>` : ''}</figure>`)
         : '').join('')}</div>`;
+    } else if (/^youtube:/.test(ph.items[0]?.href || '') && resolved[0]?.img) {
+      /* `![legenda](capa.jpg "youtube:ID")` — filme largo em 16:9. A capa é
+         uma foto nossa; o player do YouTube só carrega no clique, com som. */
+      const r = resolved[0];
+      const id = ph.items[0].href.slice(8).replace(/[^\w-]/g, '');
+      out = `<figure class="video video--yt"><div class="media media--16-9" data-yt="${id}" role="button" tabindex="0" aria-label="Assistir${r.alt ? ': ' + r.alt : ''}">${imgTag(r.img, { alt: r.alt, sizes: '(min-width:1000px) 66vw, 100vw' })}<span class="video__play" aria-hidden="true"></span></div>${r.alt ? `<figcaption class="meta">${r.alt}</figcaption>` : ''}</figure>`;
     } else {
       const r = resolved[0];
       out = r.img?.vetor ? vetor(r) : r.img

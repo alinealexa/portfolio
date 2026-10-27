@@ -183,6 +183,22 @@
     });
   }
 
+  /* ---------- FILME DO YOUTUBE: capa parada; clique troca pelo player, com som ---------- */
+  document.querySelectorAll('[data-yt]').forEach(function (m) {
+    var abrir = function () {
+      if (m.querySelector('iframe')) return;
+      var f = document.createElement('iframe');
+      f.src = 'https://www.youtube-nocookie.com/embed/' + m.getAttribute('data-yt') + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      f.title = m.getAttribute('aria-label') || 'Vídeo';
+      f.allow = 'autoplay; encrypted-media; fullscreen; picture-in-picture';
+      f.allowFullscreen = true;
+      m.appendChild(f);
+      m.classList.add('is-playing');
+    };
+    m.addEventListener('click', abrir);
+    m.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); abrir(); } });
+  });
+
   /* ---------- CARROSSEL: setas e contador; o resto é rolagem nativa ---------- */
   document.querySelectorAll('[data-carrossel]').forEach(function (c) {
     var track = c.querySelector('[data-carrossel-track]');
