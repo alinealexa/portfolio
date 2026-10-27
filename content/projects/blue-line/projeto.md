@@ -1,5 +1,5 @@
 ---
-titulo: "_blueline"
+titulo: "_blueline."
 cliente: "Marca própria"
 ano: "2024–2026"
 resumo: "Marca própria de quadros que transformam a prova de um atleta em peça de parede."
