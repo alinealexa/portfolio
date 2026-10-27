@@ -367,7 +367,7 @@
    olho ler o título antes de mergulhar na foto, e cria uma linha
    tipográfica repetida que organiza a página inteira. */
 
-.projects { display: grid; gap: var(--s-16) var(--gutter); }
+.projects { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-16) var(--gutter); }
 @media (min-width: 700px)  { .projects { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1100px) { .projects { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
@@ -427,7 +427,7 @@
    O cliente nunca perde de vista escopo e créditos enquanto navega
    pelas fotos. É a peça que resolve vitrine + credibilidade junto. */
 
-.project-layout { display: grid; gap: var(--s-12) var(--gutter); align-items: start; }
+.project-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-12) var(--gutter); align-items: start; }
 @media (min-width: 1000px) {
   .project-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 22rem); gap: var(--s-16) var(--s-16); }
 }
@@ -759,10 +759,9 @@
 
 .contact__mail {
   display: inline-block;
-  font-size: clamp(1.75rem, 6.2vw, 5.5rem);
+  font-size: clamp(1.5rem, 6.2vw, 5.5rem);
   letter-spacing: var(--tr-display-m);
   line-height: 1.02;
-  word-break: break-word;
 }
 .contact__grid { display: grid; gap: var(--s-12) var(--gutter); }
 @media (min-width: 800px) { .contact__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
@@ -902,3 +901,20 @@
 
 .marca--larga .marca__box { padding-inline: 0; }
 .marca--larga .marca__box img { width: 100%; max-height: none; }
+
+/* ---------- CELULAR: ajustes de leitura ----------
+   Título do projeto e ano numa grade: se o nome quebra em duas
+   linhas, o ano fica ao lado da última, não sozinho embaixo. */
+.project-title {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end; gap: var(--s-8);
+}
+.page-intro { max-width: 26ch; }
+@media (min-width: 700px) { .page-intro { text-align: right; margin-left: auto; } }
+
+/* Corpo grande em várias linhas: a entrelinha de display (0.88)
+   encosta acentos e descendentes quando o texto quebra muito. */
+@media (max-width: 699px) {
+  .display-m,
+  .project-body blockquote { line-height: 1; }
+}

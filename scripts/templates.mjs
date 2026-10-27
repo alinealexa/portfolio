@@ -33,7 +33,7 @@ function emailRich(email) {
   const ponto = dominio.lastIndexOf('.');
   if (ponto < 0) return `${e(local)}<span class="mail-at">@</span>${e(dominio)}`;
 
-  return `${e(local)}<span class="mail-at">@</span>${e(dominio.slice(0, ponto))}` +
+  return `${e(local)}<wbr><span class="mail-at">@</span>${e(dominio.slice(0, ponto))}` +
     `<span class="mail-dot">.</span>${e(dominio.slice(ponto + 1))}`;
 }
 
@@ -380,7 +380,7 @@ export function projectsIndex({ site, projects }) {
 <section class="wrap" style="padding-top:clamp(7rem,16vh,11rem);padding-bottom:var(--s-16)">
   <div class="row between" style="align-items:flex-end;gap:var(--s-8);flex-wrap:wrap">
     <h1 class="display-l">Projetos</h1>
-    <div class="stack" style="gap:var(--s-2);text-align:right;max-width:26ch;margin-left:auto">
+    <div class="stack page-intro" style="gap:var(--s-2)">
       <p class="muted" style="font-size:var(--t-small)">${e(site.seo?.descricao || '')}</p>
     </div>
   </div>
@@ -427,9 +427,9 @@ export function projectPage({ site, project: p, next, mae = null }) {
     ${mae
       ? `<a class="meta link-slide" href="${up}projetos/${e(mae.slug)}.html" style="display:inline-block;margin-bottom:var(--s-6)">← ${e(mae.titulo)}</a>`
       : `<p class="meta" style="margin-bottom:var(--s-6)">Projeto</p>`}
-    <div class="row between" style="align-items:flex-end;gap:var(--s-8);flex-wrap:wrap">
+    <div class="project-title">
       <h1 class="display-l">${e(p.titulo)}</h1>
-      <span class="meta" style="margin-left:auto">(${e(String(p.ano || ''))})</span>
+      <span class="meta">(${e(String(p.ano || ''))})</span>
     </div>
     ${p.resumo ? `<p class="lead muted" style="max-width:40ch;margin-top:var(--s-8)">${e(p.resumo)}</p>` : ''}
   </section>
