@@ -61,5 +61,3 @@ comunicação passou a falar da mulher moderna, de ser feliz, de escolher o que
 quiser e de usar o que quiser, porque as peças são ousadas e pedem alguém que
 goste de ser vista. Tudo isso passou a ser dito pela identidade visual, antes
 da legenda.
-
-![](10.jpg)
