@@ -169,6 +169,14 @@ async function loadProject(dir, slugFromDir) {
           : '').join('')}</div>
         <div class="carrossel__nav meta"><div class="carrossel__dots" aria-hidden="true">${'<span></span>'.repeat(n)}</div><button type="button" data-carrossel-prev aria-label="Anterior">←</button><span data-carrossel-count>01 / ${String(n).padStart(2, '0')}</span><button type="button" data-carrossel-next aria-label="Próxima">→</button></div>
       </div>`;
+    } else if (ph.kind !== 'pair' && resolved[0]?.img?.video) {
+      /* Vídeo sozinho na linha: filme largo em 16:9, mesma lógica da fileira
+         (capa parada, clique abre em tela cheia, com som). */
+      const r = resolved[0];
+      const poster = r.img.poster ? ` poster="${r.img.poster.src}"` : '';
+      const href = ph.items[0].href;
+      const cap = r.alt ? `<figcaption class="meta">${href ? `<a href="${href}" target="_blank" rel="noopener">${r.alt} <span aria-hidden="true">↗</span></a>` : r.alt}</figcaption>` : '';
+      out = `<figure class="video video--largo"><div class="media media--16-9"><video data-video src="${r.img.video}"${poster} playsinline preload="none" aria-label="${r.alt}"></video><span class="video__play" aria-hidden="true"></span></div>${cap}</figure>`;
     } else if (resolved.some((r) => r.img?.video)) {
       /* Fileira de vídeos: a capa é uma foto parada (o .jpg de mesmo nome).
          Clique abre o vídeo em tela cheia, com som. A legenda pode levar link. */
